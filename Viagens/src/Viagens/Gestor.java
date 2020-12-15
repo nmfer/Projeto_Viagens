@@ -152,6 +152,7 @@ public class Gestor{
         //atualizar dados
         try{
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_viagem.dat"));
+            os.writeInt(companhia.getUltimo());
             os.writeObject(companhia);
             os.flush();
             os.close();
