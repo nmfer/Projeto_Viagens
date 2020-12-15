@@ -34,7 +34,7 @@ public class Viagem extends Tempo implements Serializable {
         return this.destino;
     }
 
-
+    @Override
     public String toString(){
         return origem+" -> "+destino+" no data: "+ super.getDia()+"/"+super.getMes()+"/"+super.getAno()+" às: "+super.getHora()+":"+super.getMinuto()+"pela companhia" +companhia;
     }
