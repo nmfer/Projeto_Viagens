@@ -25,6 +25,8 @@ public class Cliente {
     public String getEmail(){
         return this.email;
     }
+
+    @Override
     public String toString(){
         return "Nome= "+this.name+" Email= "+this.email;
     }

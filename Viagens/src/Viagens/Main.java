@@ -28,21 +28,23 @@ public class Main {
     public static void menu_gestor(Gestor g1){
         int opcao;
         do {
-            System.out.println("1 - Adicionar Companhia");
-            System.out.println("2 - Mostra Companhias");
+            System.out.println("1 - Mostra Companhias");
+            System.out.println("2 - Adiciona Companhia");
             System.out.println("3 - Alterar Companhia");
             System.out.println("4 - Remover Companhia ");
-            System.out.println("5 - Adicionar Viagem"); //origem/destino/custo
-            System.out.println("6 - Alterar viagem");
-            System.out.println("7 - Remover viagem");
-            System.out.println("8 - Visualizar viagens");
+            System.out.println("5 - Visualizar Viagem"); //origem/destino/custo
+            System.out.println("6 - Adicionar Viagem");
+            System.out.println("7 - Alterar Viagem");
+            System.out.println("8 - Remover Viagens");
             //ver as viagens e os respetivos clientes que reservaram aas mesmas
-            System.out.println("9 - Adicionar Estadia");
-            System.out.println("10 - Remover Estadia");
+            System.out.println("9 - Visualizar Estadias");
+            System.out.println("10 - Adicionar Estadia");
             System.out.println("11 - Alterar Estadia");
+            System.out.println("12 - Remover Estadia");
             //ver as estadias?? ou no 8 - visualizar viagens; por cada clienete apresentar se há ou não estadia reservada e caso seja apresenta o mesmo
-            System.out.println("12 - Visualizar viagens antigas");
-            System.out.println("13 - Aluguer carros");
+            System.out.println("13 - Visualizar viagens antigas");
+            //System.out.println("14 - Visualizar companhias removidas");
+            //System.out.println("0 - Cancelar/voltar");
 
             opcao = Ler.umInt(); //introduz a opção escolhida
             g1.main_menu(opcao); //"manda" para o Main Menu do Gestor
@@ -66,16 +68,7 @@ public class Main {
     }
 //-------------------------------------------------------------------------------------
     public static void main(String[] args) {
-        ArrayList<Companhias_viagens> cv = new ArrayList<>();
-        /*try {
-            ObjectInputStream is = new ObjectInputStream(new FileInputStream("companhias_viagem.dat"));
-            cv = (ArrayList<Companhias_viagens>)is.readObject();
-            is.close();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }catch(ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }*/
+        //ArrayList<Companhias_viagens> cv = new ArrayList<>();
         Gestor g1 = new Gestor(); //instanciar gestor
 
         Cliente c1 = new Cliente();

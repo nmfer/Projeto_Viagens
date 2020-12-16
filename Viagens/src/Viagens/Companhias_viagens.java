@@ -18,12 +18,12 @@ public class Companhias_viagens implements Serializable {
     public void setName(String name){
         this.name = name;
     }
-    public void setTipo(String name){
+    public void setTipo(String tipo){
         this.tipo = tipo;
     }
-    public void setID(int id){
-        Companhias_viagens.this.id = id;
-    }
+    public void setID(int id){  this.id = id; }
+    public static void setUltimo(int ultimo){Companhias_viagens.ultimo = ultimo;}
+
     public String getName(){
         return this.name;
     }
@@ -31,9 +31,12 @@ public class Companhias_viagens implements Serializable {
         return this.tipo;
     }
     public int getID(){
-        return Companhias_viagens.this.id;
+        return this.id;
     }
+    public static int getUltimo(){return ultimo;}
+
+    @Override
     public String toString(){
-        return "Nome -> "+this.name+" => Tipo -> "+this.tipo+ " //ID-> "+this.id;
+        return "Nome -> "+this.name+ "_ id -> "+this.id;
     }
 }

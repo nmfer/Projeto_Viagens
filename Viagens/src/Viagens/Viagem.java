@@ -7,6 +7,8 @@ public class Viagem extends Tempo implements Serializable {
     private String origem;
     private String destino;
     private String companhia = " ";
+    private static int ultimo = 0;
+    private int cod;
     //ArrayList<Viagem> viagem = new ArrayList<Viagem>();
 
     public Viagem(Tempo t){ super(t.getHora(), t.getMinuto(), t.getDia(), t.getMes(), t.getAno());}
@@ -15,6 +17,7 @@ public class Viagem extends Tempo implements Serializable {
         super(t.getHora(), t.getMinuto(), t.getDia(), t.getMes(), t.getAno());
         this.origem = origem;
         this.destino = destino;
+        this.cod = ultimo++;
     }
 
     //getters e setters
@@ -25,6 +28,8 @@ public class Viagem extends Tempo implements Serializable {
     public void setDestino(String destino){
         this.destino = destino;
     }
+    public static void setUltimo(int cod) {Viagem.ultimo = ultimo;}
+    public void setCod(int cod){ this.cod = cod;}
 
     public String getCompanhia(){ return this.companhia;}
     public String getOrigem(){
@@ -33,10 +38,12 @@ public class Viagem extends Tempo implements Serializable {
     public String getDestino(){
         return this.destino;
     }
+    public static int getUltimo() { return ultimo;}
+    public int getCod() {return cod;}
 
     @Override
     public String toString(){
-        return origem+" -> "+destino+" no data: "+ super.getDia()+"/"+super.getMes()+"/"+super.getAno()+" às: "+super.getHora()+":"+super.getMinuto()+"pela companhia" +companhia;
+        return cod + " = " + origem+" -> "+destino+" na data: "+ super.getDia()+"/"+super.getMes()+"/"+super.getAno()+" às: "+super.getHora()+":"+super.getMinuto()+" pela companhia " +companhia;
     }
 
 }
