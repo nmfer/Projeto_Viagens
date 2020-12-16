@@ -11,10 +11,10 @@ public class Viagem extends Tempo implements Serializable {
     private int cod;
     //ArrayList<Viagem> viagem = new ArrayList<Viagem>();
 
-    public Viagem(Tempo t){ super(t.getHora(), t.getMinuto(), t.getDia(), t.getMes(), t.getAno());}
+    public Viagem(Tempo t){ super();}
 
     public Viagem(String origem, String destino, Tempo t){
-        super(t.getHora(), t.getMinuto(), t.getDia(), t.getMes(), t.getAno());
+        super();
         this.origem = origem;
         this.destino = destino;
         this.cod = ultimo++;

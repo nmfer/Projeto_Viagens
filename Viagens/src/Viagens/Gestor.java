@@ -287,18 +287,62 @@ public class Gestor{
         String origem = Ler.umaString();
         String destino = Ler.umaString();
 
+        //Data e Tempo da viagem
+        Tempo t = new Tempo();
         System.out.println("Introduza a data e tempo da viagem");
+
+        try {
+            //DIA
+            System.out.println("Dia");
+            try {
+                int dia = Ler.umInt();
+                t.setDia(dia);
+            } catch (TimeException e) {
+                System.out.println(e.getMessage());
+            }
+
+            //MES
+            System.out.println("Mês");
+            try {
+                int mes = Ler.umInt();
+                t.setMes(mes);
+            } catch (TimeException e) {
+                System.out.println(e.getMessage());
+            }
+
+            //ANO
+            System.out.println("Ano:");
+            try {
+                int ano = Ler.umInt();
+                t.setAno(ano);
+            } catch (TimeException e) {
+                System.out.println(e.getMessage());
+            }
+            t.checkDay();
+
+        }catch(TimeException e){
+            System.out.println(e.getMessage());
+        }
+
+        //HORA
         System.out.println("Hora:");
-        int hora = Ler.umInt();
+        try {
+            int hora = Ler.umInt();
+            t.setHora(hora);
+        } catch (TimeException e) {
+            System.out.println(e.getMessage());
+        }
+
+        //MINUTO
         System.out.println("Minunto");
-        int minuto = Ler.umInt();
-        System.out.println("Dia");
-        int dia = Ler.umInt();
-        System.out.println("Mês");
-        int mes = Ler.umInt();
-        System.out.println("Ano:");
-        int ano = Ler.umInt();
-        Tempo t = new Tempo(hora,minuto,dia,mes,ano);
+        try {
+            int minuto = Ler.umInt();
+            t.setMinuto(minuto);
+        } catch (TimeException e) {
+            System.out.println(e.getMessage());
+        }
+
+
         Viagem vg = new Viagem(origem, destino, t);
 
         ArrayList<Companhias_viagens> c_v = new ArrayList<Companhias_viagens>();
@@ -358,11 +402,11 @@ public class Gestor{
                     System.out.println("Qual o aspeto que pretende alterar na viagem");
                     System.out.println("1-Origem");
                     System.out.println("2-Destino");
-                    System.out.println("3-Hora");
-                    System.out.println("4-Minuto");
-                    System.out.println("5-Dia");
-                    System.out.println("6-Mês");
-                    System.out.println("7-Ano");
+                    System.out.println("3-Dia");
+                    System.out.println("4-Mes");
+                    System.out.println("5-Ano");
+                    System.out.println("6-Hora");
+                    System.out.println("7-Minuto");
                     System.out.println("0-Cancelar");
 
                     //selecionar opção
@@ -377,24 +421,44 @@ public class Gestor{
                             v.get(i).setDestino(destino);
                             break;
                         case 3:
-                            int hora = Ler.umInt();
-                            v.get(i).setHora(hora);
+                            try {
+                                int dia = Ler.umInt();
+                                v.get(i).setDia(dia);
+                            }catch(TimeException e){
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case 4:
-                            int minuto = Ler.umInt();
-                            v.get(i).setMinuto(minuto);
+                            try {
+                                int mes = Ler.umInt();
+                                v.get(i).setMes(mes);
+                            }catch(TimeException e){
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case 5:
-                            int dia = Ler.umInt();
-                            v.get(i).setDia(dia);
+                            try {
+                                int ano = Ler.umInt();
+                                v.get(i).setAno(ano);
+                            }catch(TimeException e){
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case 6:
-                            int mes = Ler.umInt();
-                            v.get(i).setMes(mes);
+                            try {
+                                int hora = Ler.umInt();
+                                v.get(i).setHora(hora);
+                            }catch(TimeException e){
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case 7:
-                            int ano = Ler.umInt();
-                            v.get(i).setAno(ano);
+                            try{
+                                int minuto = Ler.umInt();
+                                v.get(i).setMinuto(minuto);
+                            }catch(TimeException e){
+                                System.out.println(e.getMessage());
+                            }
                             break;
                     }
 
