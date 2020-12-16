@@ -42,9 +42,9 @@ public class Main {
             System.out.println("11 - Alterar Estadia");
             System.out.println("12 - Remover Estadia");
             //ver as estadias?? ou no 8 - visualizar viagens; por cada clienete apresentar se há ou não estadia reservada e caso seja apresenta o mesmo
-            System.out.println("13 - Visualizar viagens antigas");
+            //System.out.println("13 - Visualizar viagens antigas");
             //System.out.println("14 - Visualizar companhias removidas");
-            //System.out.println("0 - Cancelar/voltar");
+            System.out.println("0 - Cancelar/voltar");
 
             opcao = Ler.umInt(); //introduz a opção escolhida
             g1.main_menu(opcao); //"manda" para o Main Menu do Gestor
