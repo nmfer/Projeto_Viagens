@@ -11,7 +11,7 @@ public class Viagem extends Tempo implements Serializable {
     private int cod;
     //ArrayList<Viagem> viagem = new ArrayList<Viagem>();
 
-    public Viagem(Tempo t){ super();}
+    //public Viagem(Tempo t){ super();}
 
     public Viagem(String origem, String destino, Tempo t){
         super();

@@ -1,4 +1,4 @@
-package viagem;
+package Viagens;
 
 public class Origem {
     private String pais;

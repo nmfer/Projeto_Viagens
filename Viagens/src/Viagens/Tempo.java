@@ -1,9 +1,7 @@
 package Viagens;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 public class Tempo implements Serializable {
     private int hora;
@@ -21,29 +19,7 @@ public class Tempo implements Serializable {
 
     //public Tempo(){}
     public Tempo() {}
-       /* //Hora exception
-        if((hora < 0) || (hora > 23)){
-            throw new TimeException("Introdução tempo incorreta-> introduza entre: 0h-23h");
-        }else{
-            this.hora = hora;
-        }
-        //Minuto exception
-        if((minuto < 0) || (minuto > 59)){
-            throw new TimeException("Introdução tempo incorreta-> introduza entre: 0min-59min");
-        }else{
-            this.minuto = minuto;
-        }
-        //Mes exception
-        if((mes < 1) || (mes > 12)){
-            throw new TimeException("Introdução tempo incorreta-> introduza entre: 1(Janeiro)-12(Dezembro");
-        }else{
-            this.mes = mes;
-        }
 
-        this.dia = dia;
-        this.hora = hora;
-        this.minuto = minuto;
-    */
 
     public void setHora(int hora) throws TimeException{
         if((dia == day_now) && (mes == month_now) && (ano == year_now)){
@@ -100,7 +76,5 @@ public class Tempo implements Serializable {
     public int getMes() { return  this.mes;}
     public int getAno() { return  this.ano;}
 
-    /*public String toString(){
-        return (""+this.hora + this.minuto + this.dia + this.mes + this.ano);
-    }*/
+
 }

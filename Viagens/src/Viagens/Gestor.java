@@ -52,6 +52,8 @@ public class Gestor{
         e1 = abrir_fich_estadias(e1);
         ArrayList<Viagem> v = new ArrayList<Viagem>();
         v = abrir_fich_viagens(v);
+        ArrayList<Companhias_viagens> cv_rem = new ArrayList<Companhias_viagens>();
+        cv_rem = abrir_fich_companhias_removidas(cv_rem);
 
         switch(opcao) {
             case 1:
@@ -155,7 +157,24 @@ public class Gestor{
         //System.out.println(e2);
         return v;
     }
+//-------------------------------------------------------------------------------
+    public ArrayList<Companhias_viagens> abrir_fich_companhias_removidas(ArrayList<Companhias_viagens> c_v_rem){
+        try {
+            ObjectInputStream is = new ObjectInputStream(new FileInputStream("companhias_removidas.dat"));
 
+            //int ult = is.readInt();
+            //Viagem.setUltimo(ult);
+
+            c_v_rem =  (ArrayList<Companhias_viagens>)is.readObject();
+            is.close();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
+        return c_v_rem;
+    }
 
 
 
@@ -256,11 +275,24 @@ public class Gestor{
 //------------------------------------------------------------------------------------
     public void remover_companhia_viagem(ArrayList<Companhias_viagens> c_v){
         //mostra_companhia(c_v);
+        ArrayList<Companhias_viagens> c_v_remove = new ArrayList<Companhias_viagens>();
+
         System.out.println("Introduza o id da companhia de forma a eliminá-la");
         int opcao = Ler.umInt();
         for(int i=0;i<c_v.size();i++){
             if(c_v.get(i).getID() == opcao){
+                c_v_remove.add(c_v.get(i));
                 c_v.remove(i);
+
+                //escrever dados das companhias removidas
+                try{
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_removidas.dat"));
+                    os.writeObject(c_v);
+                    os.flush();
+                    os.close();
+                }catch(IOException e){
+                    System.out.println(e.getMessage());
+                }
             }
         }
         //atualizar dados

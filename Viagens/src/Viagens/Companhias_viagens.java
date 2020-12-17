@@ -35,6 +35,14 @@ public class Companhias_viagens implements Serializable {
     }
     public static int getUltimo(){return ultimo;}
 
+    public boolean equals(Object obj){
+        if(obj!=null && this.getClass() == obj.getClass()){
+            Companhias_viagens c_v = (Companhias_viagens)obj;
+            return this.id == c_v.id && this.name.equals(c_v.name) && this.tipo.equals(c_v.tipo);
+        }
+        return false;
+    }
+
     @Override
     public String toString(){
         return "Nome -> "+this.name+ "_ id -> "+this.id;
