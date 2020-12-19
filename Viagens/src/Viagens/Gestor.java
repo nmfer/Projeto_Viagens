@@ -236,7 +236,18 @@ public class Gestor{
                 old_name = c_v.get(i).getName();
                 System.out.println("Introduza o novo nome para a companhia "+c_v.get(i).getName());
                 String new_name = Ler.umaString();
+
+                //verififcar s enome existe já existe
+                for(int j=0;j<c_v.size();j++){
+                    if(new_name.equals(c_v.get(j).getName())){
+                        System.out.println("Companhia nome já existe, introduza outro:");
+                        new_name = Ler.umaString();
+                    }
+                }
+
                 c_v.get(i).setName(new_name);
+
+                //Se o ficheiro das viagens ou se o arrayList das viagens não estiver vazio vai percorrer o mesmo para encontrar a viagem com o nome da companhia antiga e substitui o mesmo pelo novo nome
                 if(v.isEmpty() != false){
                     for(int j=0;j<v.size();j++) {
                         if (v.get(j).getCompanhia().equals(old_name)) {
