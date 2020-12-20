@@ -1,6 +1,8 @@
 package Viagens;
 
-public class Lotacao {
+import java.io.Serializable;
+
+public class Lotacao implements Serializable {
     private int lotacao;
 
     public Lotacao(int lotacao){

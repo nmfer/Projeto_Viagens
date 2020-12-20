@@ -239,7 +239,7 @@ public class Gestor{
                 old_name = c_v.get(i).getName();
                 System.out.println("Introduza o novo nome para a companhia "+c_v.get(i).getName());
                 String new_name = Ler.umaString();
-
+                    //c_v.get(i).setName(new_name);
                 //verififcar s enome existe já existe
                 for(int j=0;j<c_v.size();j++){
                     if(new_name.equals(c_v.get(j).getName())){
@@ -250,21 +250,34 @@ public class Gestor{
 
                 c_v.get(i).setName(new_name);
 
-                //Se o ficheiro das viagens ou se o arrayList das viagens não estiver vazio vai percorrer o mesmo para encontrar a viagem com o nome da companhia antiga e substitui o mesmo pelo novo nome
-                if(v.isEmpty() != false){
+                // percorrer as viagens existentes para
+                // encontrar a viagem com o nome da companhia antiga e substitui o mesmo pelo novo nome
                     for(int j=0;j<v.size();j++) {
                         if (v.get(j).getCompanhia().equals(old_name)) {
                             v.get(j).setCompanhia(new_name);
+
+                            try{
+                                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
+                                os.writeObject(v);
+                                os.flush();
+                                os.close();
+                            }catch(IOException e){
+                                System.out.println(e.getMessage());
+                            }finally {
+                                System.out.println("Done2");
+                            }
                         }
                     }
-                }
             }
         }
-
+        System.out.println(c_v);
         //atualizar dados
         try{
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_viagem.dat"));
+
+            os.writeInt(Companhias_viagens.getUltimo());
             os.writeObject(c_v);
+
             os.flush();
             os.close();
         }catch(IOException e){
@@ -272,26 +285,15 @@ public class Gestor{
         }finally {
             System.out.println("Done");
         }
-        if(v.isEmpty() != false){
-            try{
-                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
-                os.writeObject(v);
-                os.flush();
-                os.close();
-            }catch(IOException e){
-                System.out.println(e.getMessage());
-            }finally {
-                System.out.println("Done2");
-            }
-        }
 
     }
 //------------------------------------------------------------------------------------
     public void remover_companhia_viagem(ArrayList<Companhias_viagens> c_v){
-        //mostra_companhia(c_v);
         ArrayList<Companhias_viagens> c_v_remove = new ArrayList<Companhias_viagens>();
 
         System.out.println("Introduza o id da companhia de forma a eliminá-la");
+        mostra_companhia(c_v);
+
         int opcao = Ler.umInt();
         for(int i=0;i<c_v.size();i++){
             if(c_v.get(i).getID() == opcao){
@@ -301,7 +303,10 @@ public class Gestor{
                 //escrever dados das companhias removidas
                 try{
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_removidas.dat"));
-                    os.writeObject(c_v);
+
+                    os.writeInt(Companhias_viagens.getUltimo());
+                    os.writeObject(c_v_remove);
+
                     os.flush();
                     os.close();
                 }catch(IOException e){
@@ -312,7 +317,10 @@ public class Gestor{
         //atualizar dados
         try{
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_viagem.dat"));
+
+            os.writeInt(Companhias_viagens.getUltimo());
             os.writeObject(c_v);
+
             os.flush();
             os.close();
         }catch(IOException e){
@@ -330,7 +338,20 @@ public class Gestor{
 //-----------------------------------------------------------------------------------
     public void add_viagem(ArrayList<Viagem> v){
         //Display destinos e origens que já foram introduzidos
+        ArrayList<Origem> o = new ArrayList<>();
+        ArrayList<Origem> d = new ArrayList<>();
+
         System.out.println("Origem -> Destino");
+        for(int i=0;i<o.size();i++){
+            if(o.get(i).equals(o.get(i+1)) == false){
+                System.out.println()
+            }
+            for(int j=0;j<d.size();j++){
+                if(o.get(i).equals(d)){
+
+                }
+            }
+        }
         String origem; //= Ler.umaString();
         String destino;// = Ler.umaString();
         //do {
@@ -394,13 +415,16 @@ public class Gestor{
         System.out.println("Introduza o preço_base da viagem");
         float preco = Ler.umFloat();
 
+        System.out.println("introduza a lotação");
+        int lotacao = Ler.umInt();
+
         //instanciar uma nova viagem -> vg
-        Viagem vg = new Viagem(origem, destino, duracao_hora, duracao_minuto, preco, t);
+        Viagem vg = new Viagem(origem, destino, duracao_hora, duracao_minuto, preco, t, lotacao);
 
 
         ArrayList<Companhias_viagens> c_v = new ArrayList<Companhias_viagens>();
         c_v = abrir_fich_companhias(c_v);
-        //ArrayList<Companhias_viagens> c_v1 = new ArrayList<Companhias_viagens>();
+
 
         //mostrar as companhias de transporte
         System.out.println("Qual a companhia que oferece");
@@ -427,7 +451,6 @@ public class Gestor{
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
 
             os.writeInt(Viagem.getUltimo());
-            //os.writeObject(companhia);
             os.writeObject(v);
 
             os.flush();;
@@ -524,7 +547,10 @@ public class Gestor{
         //atualizar os dados
         try{
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
+
+            os.writeInt(Viagem.getUltimo());
             os.writeObject(v);
+
             os.flush();;
             os.close();
         }catch(IOException e) {
@@ -547,7 +573,10 @@ public class Gestor{
         }
         try{
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
+
+            os.writeInt(Viagem.getUltimo());
             os.writeObject(v);
+
             os.flush();;
             os.close();
         }catch(IOException e) {
@@ -592,7 +621,7 @@ public class Gestor{
         try{
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("estadias.dat"));
 
-            //os.writeInt(Estadia.getUltimo());
+            os.writeInt(Estadia.getUltimo());
             os.writeObject(e1);
 
             os.flush();
@@ -614,7 +643,10 @@ public class Gestor{
         }
         try{
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("estadias.dat"));
+
+            os.writeInt(Viagem.getUltimo());
             os.writeObject(e1);
+
             os.flush();;
             os.close();
         }catch(IOException e) {
