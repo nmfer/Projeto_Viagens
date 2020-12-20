@@ -4,29 +4,39 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Viagem extends Tempo implements Serializable {
-    //private String origem;
-    //private String destino;
+    private String origem;
+    private String destino;
 
     // Colecao de origens
-    private ArrayList<Origem> origem;
+    private ArrayList<Origem> origens;
     // Colecao de destinos
-    private ArrayList <Destino> destino;
+    private ArrayList <Destino> destinos;
 
-    private int duracao;
-    private float valorVendas;
+    private int duracao_hora;
+    private int duracao_minuto;
+    //private double valorVendas;
     private String companhia = " ";
     private static int ultimo = 0;
     private int cod;
-    //ArrayList<Viagem> viagem = new ArrayList<Viagem>();
+    private double preco_base;
 
-    //public Viagem(Tempo t){ super();}
+    private int lotacao;
+    //private static int lotacao;
 
-    public Viagem(String origem, String destino, int duracao, float valorVendas, Tempo t){
+
+
+    public Viagem(String origem, String destino, int duracao_hora, int duracao_minuto, double preco_base, Tempo t, int lotacao){
         super();
-        this.origem = new ArrayList <Origem>();
-        this.destino = new ArrayList <Destino>();
-        this.duracao = duracao;
-        this.valorVendas = valorVendas;
+        //Lotacao l = new l(lotacao);
+        this.lotacao = lotacao;
+        this.origem = origem;
+        this.destino = destino;
+        this.origens = new ArrayList <Origem>();
+        this.destinos = new ArrayList <Destino>();
+
+        this.duracao_hora = duracao_hora;
+        this.duracao_minuto = duracao_minuto;
+        this.preco_base = preco_base;
         this.cod = ultimo++;
     }
 
@@ -38,23 +48,24 @@ public class Viagem extends Tempo implements Serializable {
     public void setDestino(String destino){
         this.destino = destino;
     }*/
+
     public static void setUltimo(int cod) {Viagem.ultimo = ultimo;}
     public void setCod(int cod){ this.cod = cod;}
-    public boolean setDuracao(int horas) {
-        if (horas < 1) {
-            return false;
-        }
-        duracao = horas;
-        return true;
-    }
-    public boolean setValorVendas(float valor) {
-        if (valor >= 0) {
-            valorVendas = valor;
-            return true;
+    public void setDuracao_horas(int duracao_hora) throws TimeException{
+        if ((duracao_hora >= 0) || (duracao_hora <= 24)) {
+            throw new TimeException("Introdução tempo incorreta-> introduza entre: 0h-24h");
         } else {
-            return false;
+            this.duracao_hora = duracao_hora;
         }
     }
+    public void setDuracao_minuto(int duracao_minuto) throws TimeException{
+        if ((duracao_minuto >= 0) || (duracao_minuto <= 59)) {
+            throw new TimeException("Introdução tempo incorreta-> introduza entre: 0min-59min");
+        } else {
+            this.duracao_minuto = duracao_minuto;
+        }
+    }
+
 
     public String getCompanhia(){ return this.companhia;}
     /*public String getOrigem(){
@@ -65,13 +76,74 @@ public class Viagem extends Tempo implements Serializable {
     }*/
     public static int getUltimo() { return ultimo;}
     public int getCod() {return cod;}
-    public int getDuracao() {
-        return duracao;
+    public int getDuracao_hora() {
+        return duracao_hora;
     }
-    public float getValorVendas() {
-        return valorVendas;
+    public int getDuracao_minuto() {
+        return duracao_minuto;
     }
 
+
+
+
+
+    //custo da viagem tendo em conta a data de compra da mesma
+    public double preco_viagem(){
+        double preco_final = preco_base;
+        //determinar o preco da viagem tendo em conta a data/data de compra
+        if(falta_ano(super.getAno()) >= 1 && falta_mes(super.getMes()) >= 12){
+            preco_final = this.preco_base - (this.preco_base * 0.30);
+            return preco_final;
+        }if(falta_ano(super.getAno()) < 1){
+            if(falta_mes(super.getMes()) < 12 && falta_mes(super.getMes()) > 6){
+                preco_final = this.preco_base - (this.preco_base * 0.20);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) == 6){
+                preco_final = this.preco_base - (this.preco_base * 0.15);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) < 6 && falta_mes(super.getMes()) >= 4){
+                preco_final = this.preco_base - (this.preco_base * 0.1);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) < 4 && falta_mes(super.getMes()) >= 3){
+                preco_final = this.preco_base - (this.preco_base * 0.05);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) < 3 && falta_mes(super.getMes()) >= 1){
+                preco_final = this.preco_base + (this.preco_base * 0.1);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) < 1){
+                if(falta_dia(super.getDia()) < 27 && falta_dia(super.getDia()) >= 15){
+                    preco_final = this.preco_base + (this.preco_base * 0.2);
+                    return preco_final;
+                }
+                if(falta_dia(super.getDia()) < 15 && falta_dia(super.getDia()) >= 7){
+                    preco_final = this.preco_base + (this.preco_base * 0.35);
+                    return preco_final;
+                }
+                if(falta_dia(super.getDia()) < 7 && falta_dia(super.getDia()) > 1){
+                    preco_final = this.preco_base + (this.preco_base * 0.5);
+                    return preco_final;
+                }
+                if(falta_dia(super.getDia()) == 1){
+                    preco_final = this.preco_base + (this.preco_base * 0.75);
+                    return preco_final;
+                }
+
+            }
+
+        }
+        if(falta_ano(super.getAno()) == 0 && falta_mes(super.getMes()) == 0 && super.getDia() == 0){
+            if(falta_dia(super.getDia()) < 7){
+                preco_final = 2 * this.preco_base;
+                return preco_final;
+            }
+        }
+        return preco_final;
+    }
 
     @Override
     public String toString(){

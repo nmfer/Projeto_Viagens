@@ -200,19 +200,22 @@ public class Gestor{
         }
 
         Companhias_viagens cv = new Companhias_viagens(nome,tipo);
-        companhia.add(cv);
 
-        //atualizar dados
-        try{
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_viagem.dat"));
+        if(cv.equals(companhia) != true) {
+            companhia.add(cv);
 
-            os.writeInt(Companhias_viagens.getUltimo());
-            os.writeObject(companhia);
+            //atualizar dados
+            try{
+                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_viagem.dat"));
 
-            os.flush();
-            os.close();
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+                os.writeInt(Companhias_viagens.getUltimo());
+                os.writeObject(companhia);
+
+                os.flush();
+                os.close();
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -326,88 +329,97 @@ public class Gestor{
     //VIAGEM
 //-----------------------------------------------------------------------------------
     public void add_viagem(ArrayList<Viagem> v){
+        //Display destinos e origens que já foram introduzidos
         System.out.println("Origem -> Destino");
-        String origem = Ler.umaString();
-        String destino = Ler.umaString();
+        String origem; //= Ler.umaString();
+        String destino;// = Ler.umaString();
+        //do {
+            origem = Ler.umaString();
+            destino = Ler.umaString();
+            //for(int i=0;i<v.size();i++){
+                //if(origem.equals(v.get(i).)) comparar com String origem e destino na viagem para ver se já existem
+            //}
+
+        //}while();
 
         //Data e Tempo da viagem
         Tempo t = new Tempo();
         System.out.println("Introduza a data e tempo da viagem");
 
         try {
+
             //DIA
             System.out.println("Dia");
-            try {
+            boolean x = true;
+            do {
                 int dia = Ler.umInt();
                 t.setDia(dia);
-            } catch (TimeException e) {
-                System.out.println(e.getMessage());
-            }
+                x = false;
+            } while (x == true);
+
 
             //MES
             System.out.println("Mês");
-            try {
-                int mes = Ler.umInt();
-                t.setMes(mes);
-            } catch (TimeException e) {
-                System.out.println(e.getMessage());
-            }
+            int mes = Ler.umInt();
+            t.setMes(mes);
+
 
             //ANO
             System.out.println("Ano:");
-            try {
-                int ano = Ler.umInt();
-                t.setAno(ano);
-            } catch (TimeException e) {
-                System.out.println(e.getMessage());
-            }
+            int ano = Ler.umInt();
+            t.setAno(ano);
+
+            //verifica se dia da viagem==dia atual
             t.checkDay();
 
-        }catch(TimeException e){
-            System.out.println(e.getMessage());
-        }
 
-        //HORA
-        System.out.println("Hora:");
-        try {
+            //HORA
+            System.out.println("Hora:");
             int hora = Ler.umInt();
             t.setHora(hora);
-        } catch (TimeException e) {
-            System.out.println(e.getMessage());
-        }
 
-        //MINUTO
-        System.out.println("Minunto");
-        try {
+
+            //MINUTO
+            System.out.println("Minunto");
             int minuto = Ler.umInt();
             t.setMinuto(minuto);
-        } catch (TimeException e) {
-            System.out.println(e.getMessage());
+
+        }catch(TimeException e){
+            System.out.println(e.getMessage() + e.getClass());
         }
 
+        System.out.println("Introduza a duração da viagem");
+        int duracao_hora = Ler.umInt();
+        int duracao_minuto = Ler.umInt();
+        System.out.println("Introduza o preço_base da viagem");
+        float preco = Ler.umFloat();
 
-        Viagem vg = new Viagem(origem, destino, t);
+        //instanciar uma nova viagem -> vg
+        Viagem vg = new Viagem(origem, destino, duracao_hora, duracao_minuto, preco, t);
+
 
         ArrayList<Companhias_viagens> c_v = new ArrayList<Companhias_viagens>();
         c_v = abrir_fich_companhias(c_v);
-        ArrayList<Companhias_viagens> c_v1 = new ArrayList<Companhias_viagens>();
+        //ArrayList<Companhias_viagens> c_v1 = new ArrayList<Companhias_viagens>();
 
+        //mostrar as companhias de transporte
         System.out.println("Qual a companhia que oferece");
         for(int i=0;i<c_v.size();i++){
             if(c_v.get(i).getTipo().equals("Transporte")) {
                 System.out.println(c_v.get(i));
-                c_v1.add(c_v.get(i));
+                //c_v1.add(c_v.get(i));
             }
         }
 
+        //definir a companhia da viagem
         System.out.println("Introduza o ID da Companhia");
         int opcao = Ler.umInt();
-        for(int i=0;i<c_v1.size();i++){
-            if(c_v1.get(i).getID() == opcao){
-                vg.setCompanhia(c_v1.get(i).getName());
+        for(int i=0;i<c_v.size();i++){
+            if(c_v.get(i).getID() == opcao){
+                vg.setCompanhia(c_v.get(i).getName());
             }
         }
-        //ArrayList<Viagem> v = new ArrayList<Viagem>();
+        //adicionar a instancia vg ao arraylist v
         v.add(vg);
 
         //atualizar os dados
@@ -456,12 +468,12 @@ public class Gestor{
                     opcao1 = Ler.umInt();
                     switch(opcao1){
                         case 1:
-                            String origem = Ler.umaString();
-                            v.get(i).setOrigem(origem);
+                            //String origem = Ler.umaString();
+                            //v.get(i).setOrigem(origem);
                             break;
                         case 2:
-                            String destino = Ler.umaString();
-                            v.get(i).setDestino(destino);
+                            //String destino = Ler.umaString();
+                            //v.get(i).setDestino(destino);
                             break;
                         case 3:
                             try {

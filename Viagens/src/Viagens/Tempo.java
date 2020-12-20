@@ -17,8 +17,7 @@ public class Tempo implements Serializable {
     private int month_now = dataComputer.getMonthValue();
     private int year_now = dataComputer.getYear();
 
-    //public Tempo(){}
-    public Tempo() {}
+    public Tempo(){}
 
 
     public void setHora(int hora) throws TimeException{
@@ -70,11 +69,53 @@ public class Tempo implements Serializable {
         }
     }
 
+    /*public void setHora(int hora){
+        this.hora = hora;
+    }
+    public void setMinuto(int minuto){
+        this.minuto = minuto;
+    }
+    public void setDia(int dia){
+        this.dia = dia;
+    }
+    public void setMes(int mes){
+        this.mes = mes;
+    }
+    public void setAno(int ano){
+        this.ano = ano;
+    }*/
     public int getHora() { return  this.hora;}
     public int getMinuto() { return  this.minuto;}
     public int getDia() { return  this.dia;}
     public int getMes() { return  this.mes;}
     public int getAno() { return  this.ano;}
+
+    public int falta_hora(int hora){
+        int f;
+        f = hora - hour_now;
+        return f;
+    }
+
+    public int falta_minuto(int minuto){
+        int f;
+        f = minuto - minute_now;
+        return f;
+    }
+    public int falta_ano(int ano){
+        int f;
+        f = ano - year_now;
+        return f;
+    }
+    public int falta_mes(int mes){
+        int f;
+        f = mes - month_now;
+        return f;
+    }
+    public int falta_dia(int dia){
+        int f;
+        f = dia - day_now;
+        return f;
+    }
 
 
 }
