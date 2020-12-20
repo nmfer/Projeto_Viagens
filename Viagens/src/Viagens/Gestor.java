@@ -242,7 +242,7 @@ public class Gestor {
                 old_name = c_v.get(i).getName();
                 System.out.println("Introduza o novo nome para a companhia " + c_v.get(i).getName());
                 String new_name = Ler.umaString();
-                //c_v.get(i).setName(new_name);
+
                 //verififcar s enome existe já existe
                 for (int j = 0; j < c_v.size(); j++) {
                     if (new_name.equals(c_v.get(j).getName())) {

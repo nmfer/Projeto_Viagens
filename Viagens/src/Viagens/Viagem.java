@@ -7,10 +7,6 @@ public class Viagem extends Tempo implements Serializable {
     private String origem;
     private String destino;
 
-    // Colecao de origens
-    //private ArrayList<Origem> origens;
-    // Colecao de destinos
-    //private ArrayList <Destino> destinos;
 
     private int duracao_hora;
     private int duracao_minuto;

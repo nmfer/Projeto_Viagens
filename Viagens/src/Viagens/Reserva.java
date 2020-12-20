@@ -28,11 +28,4 @@ public class Reserva implements Serializable {
         return this.email;
     }
 
-    /*public ArrayList<Viagem> getViagem(){
-        return this.v;
-    }
-    public ArrayList<Estadia> getEstadia(){
-        return this.e1;
-    }*/
-
 }

@@ -90,21 +90,7 @@ public class Tempo implements Serializable {
     }
 
 
-    /*public void setHora(int hora){
-        this.hora = hora;
-    }
-    public void setMinuto(int minuto){
-        this.minuto = minuto;
-    }
-    public void setDia(int dia){
-        this.dia = dia;
-    }
-    public void setMes(int mes){
-        this.mes = mes;
-    }
-    public void setAno(int ano){
-       this.ano = ano;
-    }*/
+
     public int getHora() { return  this.hora;}
     public int getMinuto() { return  this.minuto;}
     public int getDia() { return  this.dia;}

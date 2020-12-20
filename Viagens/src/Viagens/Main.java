@@ -33,16 +33,16 @@ public class Main {
             System.out.println("2 - Adiciona Companhia");
             System.out.println("3 - Alterar Companhia");
             System.out.println("4 - Remover Companhia ");
-            System.out.println("5 - Visualizar Viagem"); //origem/destino/custo
+            System.out.println("5 - Visualizar Viagem");
             System.out.println("6 - Adicionar Viagem");
             System.out.println("7 - Alterar Viagem");
             System.out.println("8 - Remover Viagens");
-            //ver as viagens e os respetivos clientes que reservaram aas mesmas
+
             System.out.println("9 - Visualizar Estadias");
             System.out.println("10 - Adicionar Estadia");
             System.out.println("11 - Alterar Estadia");
             System.out.println("12 - Remover Estadia");
-            //ver as estadias?? ou no 8 - visualizar viagens; por cada clienete apresentar se há ou não estadia reservada e caso seja apresenta o mesmo
+
             System.out.println("13 - Visualizar companhias removidas");
             System.out.println("0 - Cancelar/voltar");
 

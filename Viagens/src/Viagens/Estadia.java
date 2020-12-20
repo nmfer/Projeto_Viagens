@@ -11,8 +11,8 @@ public class Estadia extends Tempo implements Serializable {
     private int lotacao;
     private double preco_base;
 
-    public Estadia(String car, int lotacao, double preco_base, String local){//, Tempo t){
-        //super(t.getAno(),t.getMes(),t.getDia(),t.getHora(),t.getMinuto());
+    public Estadia(String car, int lotacao, double preco_base, String local){
+
         this.car = car;
         this.local = local;
         this.lotacao = lotacao;
