@@ -83,11 +83,16 @@ public class Main {
                         opcao1 = Main.menu_viagens();
                         switch(opcao1){
                             case 1:
-                                c1.mostrar_Viagens();
+                                c1.mostrar_Viagem(c1.abrir_Viagens());
                                 break;
                             case 2:
+                                c1.comprar_Viagem();
                                 break;
                             case 3:
+                                c1.mostrar_Estadias(c1.abrir_Estadias());
+                                break;
+                            case 4:
+                                c1.alugar_estadia();
                                 break;
                         //---------------------------------------------------
                         }
@@ -98,7 +103,8 @@ public class Main {
                         Main.menu_gestor(g1);
                     }
                     break;
-                case 3://consultar bilhetes/reservas introduzindo o email da reserva
+                case 3:
+                    c1.display_cliente();
                     break;
             }
         }while(opcao != 0);

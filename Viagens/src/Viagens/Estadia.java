@@ -2,7 +2,7 @@ package Viagens;
 
 import java.io.Serializable;
 
-public class Estadia implements Serializable {
+public class Estadia extends Tempo implements Serializable {
     private String car;
     private int cod;
     private static int ultimo = 0;
@@ -11,7 +11,8 @@ public class Estadia implements Serializable {
     private int lotacao;
     private double preco_base;
 
-    public Estadia(String car, int lotacao, double preco_base, String local){
+    public Estadia(String car, int lotacao, double preco_base, String local){//, Tempo t){
+        //super(t.getAno(),t.getMes(),t.getDia(),t.getHora(),t.getMinuto());
         this.car = car;
         this.local = local;
         this.lotacao = lotacao;
@@ -49,6 +50,6 @@ public class Estadia implements Serializable {
 
     @Override
     public String toString(){
-        return car+ " " +cod+ " " +preco_base+ " " +lotacao+ " "+local;
+        return cod+ "-> " +car+ " " +preco_base+ " " +lotacao+ " "+local;
     }
 }

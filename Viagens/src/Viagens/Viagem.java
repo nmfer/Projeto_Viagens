@@ -19,6 +19,7 @@ public class Viagem extends Tempo implements Serializable {
     private static int ultimo = 0;
     private int cod;
     private double preco_base;
+    private double preco;
 
     private int lotacao;
     //private static int lotacao;
@@ -30,12 +31,11 @@ public class Viagem extends Tempo implements Serializable {
         this.lotacao = lotacao;
         this.origem = origem;
         this.destino = destino;
-        //this.origens = new ArrayList <Origem>();
-        //this.destinos = new ArrayList <Destino>();
 
         this.duracao_hora = duracao_hora;
         this.duracao_minuto = duracao_minuto;
         this.preco_base = preco_base;
+        this.preco = calculate_Preco(preco_base);
         this.cod = ultimo++;
     }
 
@@ -67,6 +67,9 @@ public class Viagem extends Tempo implements Serializable {
     public void setPreco_base(double preco_base){
         this.preco_base = preco_base;
     }
+    public void setPreco(double preco){
+        this.preco = calculate_Preco(preco_base);
+    }
 
 
     public String getCompanhia(){ return this.companhia;}
@@ -85,14 +88,67 @@ public class Viagem extends Tempo implements Serializable {
     public int getDuracao_minuto() {
         return duracao_minuto;
     }
-    public double getPreco_base(){ return preco_base;}
+
+    public double calculate_Preco(double preco_base){
+        double preco_final = preco_base;
+        //determinar o preco da viagem tendo em conta a data/data de compra
+        if(falta_ano(super.getAno()) >= 1 && falta_mes(super.getMes()) >= 12){
+            preco_final = this.preco_base - (this.preco_base * 0.30);
+            return preco_final;
+        }if(falta_ano(super.getAno()) < 1){
+            if(falta_mes(super.getMes()) < 12 && falta_mes(super.getMes()) > 6){
+                preco_final = this.preco_base - (this.preco_base * 0.20);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) == 6){
+                preco_final = this.preco_base - (this.preco_base * 0.15);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) < 6 && falta_mes(super.getMes()) >= 4){
+                preco_final = this.preco_base - (this.preco_base * 0.1);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) < 4 && falta_mes(super.getMes()) >= 3){
+                preco_final = this.preco_base - (this.preco_base * 0.05);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) < 3 && falta_mes(super.getMes()) >= 1){
+                preco_final = this.preco_base + (this.preco_base * 0.1);
+                return preco_final;
+            }
+            if(falta_mes(super.getMes()) < 1){
+                if(falta_dia(super.getDia()) < 27 && falta_dia(super.getDia()) >= 15){
+                    preco_final = this.preco_base + (this.preco_base * 0.2);
+                    return preco_final;
+                }
+                if(falta_dia(super.getDia()) < 15 && falta_dia(super.getDia()) >= 7){
+                    preco_final = this.preco_base + (this.preco_base * 0.35);
+                    return preco_final;
+                }
+                if(falta_dia(super.getDia()) < 7 && falta_dia(super.getDia()) > 1){
+                    preco_final = this.preco_base + (this.preco_base * 0.5);
+                    return preco_final;
+                }
+                if(falta_dia(super.getDia()) == 1){
+                    preco_final = this.preco_base + (this.preco_base * 0.75);
+                    return preco_final;
+                }
+            }
+        }
+        if(falta_ano(super.getAno()) == 0 && falta_mes(super.getMes()) == 0 && super.getDia() == 0){
+            if(falta_dia(super.getDia()) < 7){
+                preco_final = 2 * this.preco_base;
+                return preco_final;
+            }
+        }
+        return preco_final;
+    }
 
 
-    
 
     @Override
     public String toString(){
-        return cod + " = " + origem+" -> "+destino+" na data: "+ super.getDia()+"/"+super.getMes()+"/"+super.getAno()+" às: "+super.getHora()+":"+super.getMinuto()+" pela companhia " +companhia;
+        return cod + " = " + origem+" -> "+destino+" na data: "+ super.getDia()+"/"+super.getMes()+"/"+super.getAno()+" às: "+super.getHora()+":"+super.getMinuto()+" pela companhia " +companhia +" -> com o preco = "+preco;
     }
 
 }
