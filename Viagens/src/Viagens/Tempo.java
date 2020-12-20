@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Tempo implements Serializable {
-    private int hora;
-    private int minuto;
-    private int dia;
-    private int mes;
-    private int ano;
+    private int hora = 0;
+    private int minuto = 0;
+    private int dia = 0;
+    private int mes = 0;
+    private int ano = 0;
 
     LocalDateTime dataComputer = LocalDateTime.now();
     private int hour_now = dataComputer.getHour();
@@ -17,73 +17,78 @@ public class Tempo implements Serializable {
     private int month_now = dataComputer.getMonthValue();
     private int year_now = dataComputer.getYear();
 
+    public Tempo(int ano, int mes, int dia, int hora, int min){
+        this.ano = ano;
+        this.mes = mes;
+        this.dia = dia;
+        this.hora = hora;
+        this.minuto = min;
+    }
     public Tempo(){}
 
 
     public void setHora(int hora) throws TimeException{
+        //checkDay();
         if((dia == day_now) && (mes == month_now) && (ano == year_now)){
             throw new TimeException("Impossivel introduzir viagem no mesmo dia");
         }else {
-            boolean x = true;
-            do {
-                if ((hora < 0) || (hora > 23)) {
-                    throw new TimeException("Introdução tempo incorreta-> introduza entre: 0h-23h");
-                } else {
-                    this.hora = hora;
-                }
-            }while(x == true);
+            if ((hora < 0) || (hora > 23)) {
+                throw new TimeException("Introdução tempo incorreta-> introduza entre: 0h-23h");
+            } else {
+                this.hora = hora;
+            }
         }
     }
     public void setMinuto(int minuto) throws TimeException{
+        //checkDay();
         if((dia == day_now) && (mes == month_now) && (ano == year_now)){
             throw new TimeException("Impossivel introduzir viagem no mesmo dia");
         }else {
-            boolean x = true;
-            do {
-                if ((minuto < 0) || (minuto > 59)) {
-                    throw new TimeException("Introdução tempo incorreta-> introduza entre: 0min-59min");
-                } else {
-                    this.minuto = minuto;
-                }
-            }while(x == true);
-        }
-    }
-    public void setDia(int dia)throws TimeException {
-        boolean x = true;
-        do {
-            if ((dia < 1) || (mes > 30)) {
-                throw new TimeException("Introdução tempo incorreta-> introduza entre: ahhhh");
+            if ((minuto < 0) || (minuto > 59)) {
+                throw new TimeException("Introdução tempo incorreta-> introduza entre: 0min-59min");
             } else {
-                this.dia = dia;
-                x = false;
+                this.minuto = minuto;
+
             }
-        }while(x == true);
+        }
+
     }
+
+    //3º definir o dia
+    public void setDia(int dia)throws TimeException {
+        if ((dia < 1) || (mes > 31)) {
+            throw new TimeException("Introdução tempo incorreta");
+        }
+        this.dia = dia;
+
+
+    }
+
+    //2º definir mes
     public void setMes(int mes) throws TimeException{
-        boolean x = true;
-        do {
-            if((mes < 1) || (mes > 12)){
-                throw new TimeException("Introdução tempo incorreta-> introduza entre: 1(Janeiro)-12(Dezembro");
-            }else{
-                this.mes = mes;
-            }
-        }while(x == true);
+        if((mes < 1) || (mes > 12)){
+            throw new TimeException("Introdução tempo incorreta-> introduza entre: 1(Janeiro)-12(Dezembro");
+        }
+        this.mes = mes;
+
     }
+
+    //1º definir ano
     public void setAno(int ano) throws TimeException{
-        boolean x = true;
-        do {
-            if(ano < year_now){
-                throw new TimeException("Introdução tempo incorreta-> introduza entre: oof");
-            }else{
-                this.ano = ano;
-            }
-        }while(x == true);
+        if(ano < year_now){
+            throw new TimeException("Introdução tempo incorreta");
+        }
+        this.ano = ano;
     }
     public void checkDay() throws TimeException{
         if((dia == day_now) && (mes == month_now) && (ano == year_now)) {
             throw new TimeException("Impossivel introduzir viagem no mesmo dia");
         }
+        if((dia<day_now) && (mes<month_now) && (ano<year_now)){
+            throw new TimeException("Impossível introduzir viagem");
+        }
     }
+
 
     /*public void setHora(int hora){
         this.hora = hora;
@@ -98,13 +103,15 @@ public class Tempo implements Serializable {
         this.mes = mes;
     }
     public void setAno(int ano){
-        this.ano = ano;
+       this.ano = ano;
     }*/
     public int getHora() { return  this.hora;}
     public int getMinuto() { return  this.minuto;}
     public int getDia() { return  this.dia;}
     public int getMes() { return  this.mes;}
     public int getAno() { return  this.ano;}
+
+
 
     public int falta_hora(int hora){
         int f;
@@ -134,4 +141,8 @@ public class Tempo implements Serializable {
     }
 
 
+    public String toString(){
+        String s = ano+mes+dia+ " " +hora+minuto;
+        return s;
+    }
 }

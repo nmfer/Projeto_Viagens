@@ -15,9 +15,8 @@ public class Main {
         System.out.println("Vamos viajar? De que forma?");
         System.out.println("1 - Mostrar Viagens");
         System.out.println("2 - Comprar Viagem");
-        System.out.println("3 - Introduzir destino");
-        System.out.println("4 - Mostrar Estadia");
-        System.out.println("5 - Alugar Estadia");
+        System.out.println("3 - Mostrar Estadia");
+        System.out.println("4 - Alugar Estadia");
         System.out.println("0 - Voltar ao menu principal");
 
         opcao = Ler.umInt();
@@ -61,7 +60,7 @@ public class Main {
         System.out.println("BEM VINDO!!"+"\nO que pretende fazer?");
         System.out.println("1 - Consultar Viagens");
         System.out.println("2 - Gestor -> Iniciar sessão");
-        System.out.println("3 - Consultar Bilhetes");
+        System.out.println("3 - Consultar Reservas");
         System.out.println("0 - Sair");
 
         opcao = Ler.umInt();

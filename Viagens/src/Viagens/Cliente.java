@@ -33,7 +33,7 @@ public class Cliente {
 
     public void mostrar_Viagens(){
         ArrayList<Viagem> viagem = new ArrayList<Viagem>();
-        System.out.println(viagem);
+        //System.out.println(viagem);
         try{
             ObjectInputStream is = new ObjectInputStream(new FileInputStream("viagens.dat"));
 
@@ -47,9 +47,31 @@ public class Cliente {
         }catch(ClassNotFoundException e){
             System.out.println(e.getMessage());
         }
-        System.out.println(viagem);
+        //System.out.println(viagem);
         for(int i=0;i<viagem.size();i++){
             System.out.println(viagem.get(i));
+        }
+    }
+
+    public void mostrar_Estadias(){
+        ArrayList<Estadia> estadia = new ArrayList<Estadia>();
+        //System.out.println(viagem);
+        try{
+            ObjectInputStream is = new ObjectInputStream(new FileInputStream("estadias.dat"));
+
+            int ult = is.readInt();
+            Viagem.setUltimo(ult);
+
+            estadia = (ArrayList<Estadia>)is.readObject();
+            is.close();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        //System.out.println(viagem);
+        for(int i=0;i<estadia.size();i++){
+            System.out.println(estadia.get(i));
         }
     }
 }

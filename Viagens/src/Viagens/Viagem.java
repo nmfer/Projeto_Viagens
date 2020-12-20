@@ -26,7 +26,7 @@ public class Viagem extends Tempo implements Serializable {
 
 
     public Viagem(String origem, String destino, int duracao_hora, int duracao_minuto, double preco_base, Tempo t, int lotacao){
-        super();
+        super(t.getAno(), t.getMes(), t.getDia(), t.getHora(), t.getMinuto());
         this.lotacao = lotacao;
         this.origem = origem;
         this.destino = destino;
@@ -64,6 +64,9 @@ public class Viagem extends Tempo implements Serializable {
             this.duracao_minuto = duracao_minuto;
         }
     }
+    public void setPreco_base(double preco_base){
+        this.preco_base = preco_base;
+    }
 
 
     public String getCompanhia(){ return this.companhia;}
@@ -82,9 +85,10 @@ public class Viagem extends Tempo implements Serializable {
     public int getDuracao_minuto() {
         return duracao_minuto;
     }
+    public double getPreco_base(){ return preco_base;}
 
 
-
+    
 
     @Override
     public String toString(){
