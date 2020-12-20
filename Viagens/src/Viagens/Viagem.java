@@ -8,9 +8,9 @@ public class Viagem extends Tempo implements Serializable {
     private String destino;
 
     // Colecao de origens
-    private ArrayList<Origem> origens;
+    //private ArrayList<Origem> origens;
     // Colecao de destinos
-    private ArrayList <Destino> destinos;
+    //private ArrayList <Destino> destinos;
 
     private int duracao_hora;
     private int duracao_minuto;
@@ -27,12 +27,11 @@ public class Viagem extends Tempo implements Serializable {
 
     public Viagem(String origem, String destino, int duracao_hora, int duracao_minuto, double preco_base, Tempo t, int lotacao){
         super();
-        //Lotacao l = new l(lotacao);
         this.lotacao = lotacao;
         this.origem = origem;
         this.destino = destino;
-        this.origens = new ArrayList <Origem>();
-        this.destinos = new ArrayList <Destino>();
+        //this.origens = new ArrayList <Origem>();
+        //this.destinos = new ArrayList <Destino>();
 
         this.duracao_hora = duracao_hora;
         this.duracao_minuto = duracao_minuto;
@@ -48,7 +47,7 @@ public class Viagem extends Tempo implements Serializable {
     public void setDestino(String destino){
         this.destino = destino;
     }
-
+    public void setLotacao(int lotacao) { this.lotacao = lotacao;}
     public static void setUltimo(int cod) {Viagem.ultimo = ultimo;}
     public void setCod(int cod){ this.cod = cod;}
     public void setDuracao_horas(int duracao_hora) throws TimeException{
@@ -74,6 +73,7 @@ public class Viagem extends Tempo implements Serializable {
     public String getDestino(){
         return this.destino;
     }
+    public int getLotacao() {return this.lotacao;}
     public static int getUltimo() { return ultimo;}
     public int getCod() {return cod;}
     public int getDuracao_hora() {

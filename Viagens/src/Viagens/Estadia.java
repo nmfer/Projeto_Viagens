@@ -5,17 +5,22 @@ import java.io.Serializable;
 public class Estadia extends Tempo implements Serializable {
     private String name;
     private int cod;
-    private String local;
     private static int ultimo = 0;
-    private int pessoas_quarto;
+    private String local;
+
+    private int lotacao;
     private double preco_base;
-    //private
 
-    public Estadia(String name){
+    public Estadia(String name, int lotacao, double preco_base, String local){
         this.name = name;
-        this.cod = this.ultimo++;
+        this.local = local;
+        this.lotacao = lotacao;
+        this.preco_base = preco_base;
 
+        this.cod = this.ultimo++;
     }
+
+
     //getters e setters
     public void setName(String name){
         this.name = name;
@@ -24,9 +29,9 @@ public class Estadia extends Tempo implements Serializable {
     public void setPreco_base(double preco_base) {
         this.preco_base = preco_base;
     }
-    public void setLocal(String name){ this.local = local;}
-    public void setPessoas_quarto(int pessoas_quarto){
-        this.pessoas_quarto = pessoas_quarto;
+    public void setLocal(String local){ this.local = local;}
+    public void setLotacao_quarto(int lotacao){
+        this.lotacao = lotacao;
     }
     public static void setUltimo(int ultimo){Estadia.ultimo = ultimo;}
 
@@ -38,12 +43,12 @@ public class Estadia extends Tempo implements Serializable {
     }
     public double getPreco_base() { return this.preco_base;}
     public String getLocal() {return this.local;}
-    public int getPessoas_quarto() { return this.pessoas_quarto;}
+    public int getLotacao() { return this.lotacao;}
     public static int getUltimo(){return ultimo;}
 
 
     @Override
     public String toString(){
-        return name+ " " +cod+ " " +preco_base+ " " +pessoas_quarto;
+        return name+ " " +cod+ " " +preco_base+ " " +lotacao;
     }
 }

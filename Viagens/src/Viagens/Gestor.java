@@ -414,7 +414,7 @@ public class Gestor {
                 int duracao_hora = Ler.umInt();
                 int duracao_minuto = Ler.umInt();
                 System.out.println("Introduza o preço_base da viagem");
-                float preco = Ler.umFloat();
+                double preco = Ler.umDouble();
 
                 System.out.println("introduza a lotação");
                 int lotacao = Ler.umInt();
@@ -592,7 +592,18 @@ public class Gestor {
     public void add_estadia(ArrayList<Estadia> e1) {
         System.out.println("Introduza o nome");
         String nome = Ler.umaString();
-        Estadia e2 = new Estadia(nome);
+
+
+        System.out.println("Introduza o preço_base da estadia");
+        double preco_base = Ler.umDouble();
+
+        System.out.println("introduza a lotação por quarto");
+        int lotacao = Ler.umInt();
+
+        System.out.println("introduza a lotação por quarto");
+        String local = Ler.umaString();
+
+        Estadia e2 = new Estadia(nome, lotacao, preco_base, local);
 
         e1.add(e2);
 
@@ -650,7 +661,6 @@ public class Gestor {
             os.writeObject(e1);
 
             os.flush();
-            ;
             os.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());

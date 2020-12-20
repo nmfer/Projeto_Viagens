@@ -17,7 +17,7 @@ public class Precos extends Tempo implements Serializable {
     }
 
     //custo da viagem tendo em conta a data de compra da mesma
-    public double preco_viagem(){
+    public double price_final(){
         double preco_final = preco_base;
         //determinar o preco da viagem tendo em conta a data/data de compra
         if(falta_ano(super.getAno()) >= 1 && falta_mes(super.getMes()) >= 12){
