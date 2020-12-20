@@ -5,27 +5,29 @@ import java.util.ArrayList;
 import my_inputs.Ler;
 
 
-public class Gestor{
+public class Gestor {
     private static String username = "admin";
     private static String password = "admin";
 
 
-    public Gestor(){}
+    public Gestor() {
+    }
 
     //LOGIN
 //--------------------------------------------------------------------
-    public boolean Login(){
+    public boolean Login() {
         System.out.println("Login - Inicie sessão");
         System.out.println("Username:");
         String user = Ler.umaString();
-        if(checkUsername(user) == true){
+        if (checkUsername(user) == true) {
             return true;
         }
         //return "Credenciais incorretas";
         return false;
     }
-    public boolean checkUsername(String x){
-        if(x.equals(Gestor.this.username)){
+
+    public boolean checkUsername(String x) {
+        if (x.equals(Gestor.this.username)) {
             System.out.println("Password");
             String pwd = Ler.umaString();
             return checkPassword(pwd);
@@ -33,18 +35,18 @@ public class Gestor{
         System.out.println("Username não encontrado");
         return false;
     }
-    public boolean checkPassword(String x){
-        if(x.equals(Gestor.this.password)){
+
+    public boolean checkPassword(String x) {
+        if (x.equals(Gestor.this.password)) {
             return true;
         }
         return false;
     }
 
 
-
     //MAIN MENU
 //----------------------------------------------------------------------
-    public void main_menu(int opcao){
+    public void main_menu(int opcao) {
         //abrir ou localizar os ficheiros antes de fazer qualquer input ou alteração nos mesmos
         ArrayList<Companhias_viagens> cv = new ArrayList<Companhias_viagens>();
         cv = abrir_fich_companhias(cv);
@@ -55,7 +57,7 @@ public class Gestor{
         ArrayList<Companhias_viagens> cv_rem = new ArrayList<Companhias_viagens>();
         cv_rem = abrir_fich_companhias_removidas(cv_rem);
 
-        switch(opcao) {
+        switch (opcao) {
             case 1:
                 mostra_companhia(cv);
                 break;
@@ -92,35 +94,34 @@ public class Gestor{
             case 12:
                 remove_estadia(e1);
                 break;
+            case 14:
+                mostrar_companhias_removidas(cv_rem);
+                break;
         }
     }
 
 
-
-
-
-
     //OPEN FILES
 //------------------------------------------------------------------------
-    public ArrayList<Companhias_viagens> abrir_fich_companhias(ArrayList<Companhias_viagens> c_v){
+    public ArrayList<Companhias_viagens> abrir_fich_companhias(ArrayList<Companhias_viagens> c_v) {
         try {
             ObjectInputStream is = new ObjectInputStream(new FileInputStream("companhias_viagem.dat"));
 
             int ult = is.readInt();
             Companhias_viagens.setUltimo(ult);
 
-            c_v = (ArrayList<Companhias_viagens>)is.readObject();
+            c_v = (ArrayList<Companhias_viagens>) is.readObject();
             is.close();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }catch(ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
         return c_v;
     }
-//------------------------------------------------------------------------
-    public ArrayList<Estadia> abrir_fich_estadias(ArrayList<Estadia> e1){
+
+    //------------------------------------------------------------------------
+    public ArrayList<Estadia> abrir_fich_estadias(ArrayList<Estadia> e1) {
         //ArrayList<Estadia> e2 = new ArrayList<Estadia>();
         try {
             ObjectInputStream is = new ObjectInputStream(new FileInputStream("estadias.dat"));
@@ -128,18 +129,19 @@ public class Gestor{
             int ult = is.readInt();
             Estadia.setUltimo(ult);
 
-            e1 =  (ArrayList<Estadia>)is.readObject();
+            e1 = (ArrayList<Estadia>) is.readObject();
             is.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }catch(ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
         //System.out.println(e2);
         return e1;
     }
-//-------------------------------------------------------------------------------
-    public ArrayList<Viagem> abrir_fich_viagens(ArrayList<Viagem> v){
+
+    //-------------------------------------------------------------------------------
+    public ArrayList<Viagem> abrir_fich_viagens(ArrayList<Viagem> v) {
         //ArrayList<Estadia> e2 = new ArrayList<Estadia>();
         try {
             ObjectInputStream is = new ObjectInputStream(new FileInputStream("viagens.dat"));
@@ -147,29 +149,30 @@ public class Gestor{
             int ult = is.readInt();
             Viagem.setUltimo(ult);
 
-            v =  (ArrayList<Viagem>)is.readObject();
+            v = (ArrayList<Viagem>) is.readObject();
             is.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }catch(ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
         //System.out.println(e2);
         return v;
     }
-//-------------------------------------------------------------------------------
-    public ArrayList<Companhias_viagens> abrir_fich_companhias_removidas(ArrayList<Companhias_viagens> c_v_rem){
+
+    //-------------------------------------------------------------------------------
+    public ArrayList<Companhias_viagens> abrir_fich_companhias_removidas(ArrayList<Companhias_viagens> c_v_rem) {
         try {
             ObjectInputStream is = new ObjectInputStream(new FileInputStream("companhias_removidas.dat"));
 
-            //int ult = is.readInt();
-            //Viagem.setUltimo(ult);
+            int ult = is.readInt();
+            Companhias_viagens.setUltimo(ult);
 
-            c_v_rem =  (ArrayList<Companhias_viagens>)is.readObject();
+            c_v_rem = (ArrayList<Companhias_viagens>) is.readObject();
             is.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }catch(ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
@@ -177,20 +180,18 @@ public class Gestor{
     }
 
 
-
-
     //COMPANHIA VIAGEM
 //-------------------------------------------------------------------------------
-    public void add_companhia(ArrayList<Companhias_viagens> companhia){
+    public void add_companhia(ArrayList<Companhias_viagens> companhia) {
         System.out.println("Nome Companhia:");
         String nome = Ler.umaString();
 
-        System.out.println("Escolha o tipo de transposte associado à empresa:");
+        System.out.println("Escolha o tipo associado à empresa:");
         System.out.println("1-Transporte");
         System.out.println("2-Estadia");
         String tipo = " ";
         int opcao = Ler.umInt();
-        switch(opcao){
+        switch (opcao) {
             case 1:
                 tipo = "Transporte";
                 break;
@@ -199,13 +200,13 @@ public class Gestor{
                 break;
         }
 
-        Companhias_viagens cv = new Companhias_viagens(nome,tipo);
+        Companhias_viagens cv = new Companhias_viagens(nome, tipo);
 
-        if(cv.equals(companhia) != true) {
+        if (cv.equals(companhia) != true) {
             companhia.add(cv);
 
             //atualizar dados
-            try{
+            try {
                 ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_viagem.dat"));
 
                 os.writeInt(Companhias_viagens.getUltimo());
@@ -213,20 +214,21 @@ public class Gestor{
 
                 os.flush();
                 os.close();
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-//-----------------------------------------------------------------------------------------------------------------
-    public void mostra_companhia(ArrayList<Companhias_viagens> c_v){
-        for(int i=0;i<c_v.size();i++){
+    //-----------------------------------------------------------------------------------------------------------------
+    public void mostra_companhia(ArrayList<Companhias_viagens> c_v) {
+        for (int i = 0; i < c_v.size(); i++) {
             System.out.println(c_v.get(i));
         }
     }
-//-----------------------------------------------------------------------------------------------------------------
-    public void altera_companhia(ArrayList<Companhias_viagens> c_v){
+
+    //-----------------------------------------------------------------------------------------------------------------
+    public void altera_companhia(ArrayList<Companhias_viagens> c_v) {
         mostra_companhia(c_v);
         ArrayList<Viagem> v = new ArrayList<Viagem>();
         v = abrir_fich_viagens(v);
@@ -234,15 +236,15 @@ public class Gestor{
         System.out.println("Introduza o id da companhia de forma a mudar o nome da mesma");
         String old_name;
         int opcao = Ler.umInt();
-        for (int i=0;i<c_v.size();i++){
-            if(c_v.get(i).getID() == opcao){
+        for (int i = 0; i < c_v.size(); i++) {
+            if (c_v.get(i).getID() == opcao) {
                 old_name = c_v.get(i).getName();
-                System.out.println("Introduza o novo nome para a companhia "+c_v.get(i).getName());
+                System.out.println("Introduza o novo nome para a companhia " + c_v.get(i).getName());
                 String new_name = Ler.umaString();
-                    //c_v.get(i).setName(new_name);
+                //c_v.get(i).setName(new_name);
                 //verififcar s enome existe já existe
-                for(int j=0;j<c_v.size();j++){
-                    if(new_name.equals(c_v.get(j).getName())){
+                for (int j = 0; j < c_v.size(); j++) {
+                    if (new_name.equals(c_v.get(j).getName())) {
                         System.out.println("Companhia nome já existe, introduza outro:");
                         new_name = Ler.umaString();
                     }
@@ -252,27 +254,27 @@ public class Gestor{
 
                 // percorrer as viagens existentes para
                 // encontrar a viagem com o nome da companhia antiga e substitui o mesmo pelo novo nome
-                    for(int j=0;j<v.size();j++) {
-                        if (v.get(j).getCompanhia().equals(old_name)) {
-                            v.get(j).setCompanhia(new_name);
+                for (int j = 0; j < v.size(); j++) {
+                    if (v.get(j).getCompanhia().equals(old_name)) {
+                        v.get(j).setCompanhia(new_name);
 
-                            try{
-                                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
-                                os.writeObject(v);
-                                os.flush();
-                                os.close();
-                            }catch(IOException e){
-                                System.out.println(e.getMessage());
-                            }finally {
-                                System.out.println("Done2");
-                            }
+                        try {
+                            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
+                            os.writeObject(v);
+                            os.flush();
+                            os.close();
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        } finally {
+                            System.out.println("Done2");
                         }
                     }
+                }
             }
         }
         System.out.println(c_v);
         //atualizar dados
-        try{
+        try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_viagem.dat"));
 
             os.writeInt(Companhias_viagens.getUltimo());
@@ -280,28 +282,29 @@ public class Gestor{
 
             os.flush();
             os.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }finally {
+        } finally {
             System.out.println("Done");
         }
 
     }
-//------------------------------------------------------------------------------------
-    public void remover_companhia_viagem(ArrayList<Companhias_viagens> c_v){
+
+    //------------------------------------------------------------------------------------
+    public void remover_companhia_viagem(ArrayList<Companhias_viagens> c_v) {
         ArrayList<Companhias_viagens> c_v_remove = new ArrayList<Companhias_viagens>();
 
         System.out.println("Introduza o id da companhia de forma a eliminá-la");
         mostra_companhia(c_v);
 
         int opcao = Ler.umInt();
-        for(int i=0;i<c_v.size();i++){
-            if(c_v.get(i).getID() == opcao){
+        for (int i = 0; i < c_v.size(); i++) {
+            if (c_v.get(i).getID() == opcao) {
                 c_v_remove.add(c_v.get(i));
                 c_v.remove(i);
 
                 //escrever dados das companhias removidas
-                try{
+                try {
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_removidas.dat"));
 
                     os.writeInt(Companhias_viagens.getUltimo());
@@ -309,13 +312,13 @@ public class Gestor{
 
                     os.flush();
                     os.close();
-                }catch(IOException e){
+                } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
             }
         }
         //atualizar dados
-        try{
+        try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("companhias_viagem.dat"));
 
             os.writeInt(Companhias_viagens.getUltimo());
@@ -323,158 +326,156 @@ public class Gestor{
 
             os.flush();
             os.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }finally {
+        } finally {
             System.out.println("Done");
         }
     }
 
 
-
-
-
     //VIAGEM
 //-----------------------------------------------------------------------------------
-    public void add_viagem(ArrayList<Viagem> v){
-        //Display destinos e origens que já foram introduzidos
-        ArrayList<Origem> o = new ArrayList<>();
-        ArrayList<Origem> d = new ArrayList<>();
-
-        System.out.println("Origem -> Destino");
-        for(int i=0;i<o.size();i++){
-            if(o.get(i).equals(o.get(i+1)) == false){
-                System.out.println()
-            }
-            for(int j=0;j<d.size();j++){
-                if(o.get(i).equals(d)){
-
-                }
-            }
-        }
-        String origem; //= Ler.umaString();
-        String destino;// = Ler.umaString();
-        //do {
-            origem = Ler.umaString();
-            destino = Ler.umaString();
-            //for(int i=0;i<v.size();i++){
-                //if(origem.equals(v.get(i).)) comparar com String origem e destino na viagem para ver se já existem
-            //}
-
-        //}while();
-
-        //Data e Tempo da viagem
-        Tempo t = new Tempo();
-        System.out.println("Introduza a data e tempo da viagem");
-
-        try {
-
-            //DIA
-            System.out.println("Dia");
-            boolean x = true;
-            do {
-                int dia = Ler.umInt();
-                t.setDia(dia);
-                x = false;
-            } while (x == true);
-
-
-            //MES
-            System.out.println("Mês");
-            int mes = Ler.umInt();
-            t.setMes(mes);
-
-
-            //ANO
-            System.out.println("Ano:");
-            int ano = Ler.umInt();
-            t.setAno(ano);
-
-            //verifica se dia da viagem==dia atual
-            t.checkDay();
-
-
-            //HORA
-            System.out.println("Hora:");
-            int hora = Ler.umInt();
-            t.setHora(hora);
-
-
-            //MINUTO
-            System.out.println("Minunto");
-            int minuto = Ler.umInt();
-            t.setMinuto(minuto);
-
-        }catch(TimeException e){
-            System.out.println(e.getMessage() + e.getClass());
-        }
-
-        System.out.println("Introduza a duração da viagem");
-        int duracao_hora = Ler.umInt();
-        int duracao_minuto = Ler.umInt();
-        System.out.println("Introduza o preço_base da viagem");
-        float preco = Ler.umFloat();
-
-        System.out.println("introduza a lotação");
-        int lotacao = Ler.umInt();
-
-        //instanciar uma nova viagem -> vg
-        Viagem vg = new Viagem(origem, destino, duracao_hora, duracao_minuto, preco, t, lotacao);
-
+    public void add_viagem(ArrayList<Viagem> v) {
+        mostra_viagem(v);
 
         ArrayList<Companhias_viagens> c_v = new ArrayList<Companhias_viagens>();
         c_v = abrir_fich_companhias(c_v);
 
+        for (int j = 0; j < c_v.size(); j++) {
+            if (c_v.get(j).getTipo().equals("Transporte")) {
 
-        //mostrar as companhias de transporte
-        System.out.println("Qual a companhia que oferece");
-        for(int i=0;i<c_v.size();i++){
-            if(c_v.get(i).getTipo().equals("Transporte")) {
-                System.out.println(c_v.get(i));
-                //c_v1.add(c_v.get(i));
+                String origem; //= Ler.umaString();
+                String destino;// = Ler.umaString();
+
+                boolean x = true;
+                do {
+                    System.out.println("introduza a origem e destino");
+                    origem = Ler.umaString();
+                    destino = Ler.umaString();
+
+                    for (int i = 0; i < v.size(); i++) {
+                        //comparar com String origem e destino na viagem para ver se já existem
+                        String origin = v.get(i).getOrigem();
+                        String destiny = v.get(i).getDestino();
+                        if (origem.equals(origin) && destino.equals(destiny)) {
+                            x = true;
+                        }
+                    }
+                    x = false;
+                } while (x == true);
+
+                //Data e Tempo da viagem
+                Tempo t = new Tempo();
+                System.out.println("Introduza a data e tempo da viagem");
+
+                try {
+                    //HORA
+                    System.out.println("Hora:");
+                    int hora = Ler.umInt();
+                    t.setHora(hora);
+
+
+                    //MINUTO
+                    System.out.println("Minunto");
+                    int minuto = Ler.umInt();
+                    t.setMinuto(minuto);
+
+
+                    //DIA
+                    try {
+                        System.out.println("Dia");
+                        int dia = Ler.umInt();
+                        t.setDia(dia);
+                    } catch (TimeException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    //MES
+                    System.out.println("Mês");
+                    int mes = Ler.umInt();
+                    t.setMes(mes);
+
+
+                    //ANO
+                    System.out.println("Ano:");
+                    int ano = Ler.umInt();
+                    t.setAno(ano);
+
+                    //verifica se dia da viagem==dia atual
+                    t.checkDay();
+
+
+                } catch (TimeException e) {
+                    System.out.println(e.getMessage() + e.getClass());
+                }
+
+                System.out.println("Introduza a duração da viagem");
+                int duracao_hora = Ler.umInt();
+                int duracao_minuto = Ler.umInt();
+                System.out.println("Introduza o preço_base da viagem");
+                float preco = Ler.umFloat();
+
+                System.out.println("introduza a lotação");
+                int lotacao = Ler.umInt();
+
+                //instanciar uma nova viagem -> vg
+                Viagem vg = new Viagem(origem, destino, duracao_hora, duracao_minuto, preco, t, lotacao);
+
+
+                //mostrar as companhias de transporte
+                System.out.println("Qual a companhia que oferece");
+                for (int i = 0; i < c_v.size(); i++) {
+                    if (c_v.get(i).getTipo().equals("Transporte")) {
+                        System.out.println(c_v.get(i));
+                        //c_v1.add(c_v.get(i));
+                    }
+                }
+
+                //definir a companhia da viagem
+                System.out.println("Introduza o ID da Companhia");
+                int opcao = Ler.umInt();
+                for (int i = 0; i < c_v.size(); i++) {
+                    if (c_v.get(i).getID() == opcao) {
+                        vg.setCompanhia(c_v.get(i).getName());
+                    }
+                }
+                //adicionar a instancia vg ao arraylist v
+                v.add(vg);
+
+                //atualizar os dados
+                try {
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
+
+                    os.writeInt(Viagem.getUltimo());
+                    os.writeObject(v);
+
+                    os.flush();
+                    os.close();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
         }
-
-        //definir a companhia da viagem
-        System.out.println("Introduza o ID da Companhia");
-        int opcao = Ler.umInt();
-        for(int i=0;i<c_v.size();i++){
-            if(c_v.get(i).getID() == opcao){
-                vg.setCompanhia(c_v.get(i).getName());
-            }
-        }
-        //adicionar a instancia vg ao arraylist v
-        v.add(vg);
-
-        //atualizar os dados
-        try{
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
-
-            os.writeInt(Viagem.getUltimo());
-            os.writeObject(v);
-
-            os.flush();;
-            os.close();
-        }catch(IOException e) {
-            System.out.println(e.getMessage());
-        }
-
     }
 
-//------------------------------------------------------------------------------------
-    public void mostra_viagem(ArrayList<Viagem> v){
-        for(int i=0;i<v.size();i++){
+
+    //------------------------------------------------------------------------------------
+    public void mostra_viagem(ArrayList<Viagem> v) {
+        for (int i = 0; i < v.size(); i++) {
             System.out.println(v.get(i));
         }
     }
-//----------------------------------------------------------------------
-    public void altera_viagem(ArrayList<Viagem> v){
+
+    //----------------------------------------------------------------------
+    public void altera_viagem(ArrayList<Viagem> v) {
         System.out.println("Qual a viagem que pretende alterar:");
         mostra_viagem(v);
         int opcao = Ler.umInt();
         int opcao1;
-        for(int i=0;i<v.size();i++){
-            if(opcao == v.get(i).getCod()){
+        for (int i = 0; i < v.size(); i++) {
+            if (opcao == v.get(i).getCod()) {
                 do {
                     System.out.println(v.get(i));
                     System.out.println("Qual o aspeto que pretende alterar na viagem");
@@ -489,20 +490,20 @@ public class Gestor{
 
                     //selecionar opção
                     opcao1 = Ler.umInt();
-                    switch(opcao1){
+                    switch (opcao1) {
                         case 1:
-                            //String origem = Ler.umaString();
-                            //v.get(i).setOrigem(origem);
+                            String origem = Ler.umaString();
+                            v.get(i).setOrigem(origem);
                             break;
                         case 2:
-                            //String destino = Ler.umaString();
-                            //v.get(i).setDestino(destino);
+                            String destino = Ler.umaString();
+                            v.get(i).setDestino(destino);
                             break;
                         case 3:
                             try {
                                 int dia = Ler.umInt();
                                 v.get(i).setDia(dia);
-                            }catch(TimeException e){
+                            } catch (TimeException e) {
                                 System.out.println(e.getMessage());
                             }
                             break;
@@ -510,7 +511,7 @@ public class Gestor{
                             try {
                                 int mes = Ler.umInt();
                                 v.get(i).setMes(mes);
-                            }catch(TimeException e){
+                            } catch (TimeException e) {
                                 System.out.println(e.getMessage());
                             }
                             break;
@@ -518,7 +519,7 @@ public class Gestor{
                             try {
                                 int ano = Ler.umInt();
                                 v.get(i).setAno(ano);
-                            }catch(TimeException e){
+                            } catch (TimeException e) {
                                 System.out.println(e.getMessage());
                             }
                             break;
@@ -526,70 +527,69 @@ public class Gestor{
                             try {
                                 int hora = Ler.umInt();
                                 v.get(i).setHora(hora);
-                            }catch(TimeException e){
+                            } catch (TimeException e) {
                                 System.out.println(e.getMessage());
                             }
                             break;
                         case 7:
-                            try{
+                            try {
                                 int minuto = Ler.umInt();
                                 v.get(i).setMinuto(minuto);
-                            }catch(TimeException e){
+                            } catch (TimeException e) {
                                 System.out.println(e.getMessage());
                             }
                             break;
                     }
 
-                }while(opcao1 != 0);
+                } while (opcao1 != 0);
             }
 
         }
         //atualizar os dados
-        try{
+        try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
 
             os.writeInt(Viagem.getUltimo());
             os.writeObject(v);
 
-            os.flush();;
+            os.flush();
             os.close();
-        }catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
     }
 
 
-//----------------------------------------------------------------------
-    public void remove_viagem(ArrayList<Viagem> v){
+    //----------------------------------------------------------------------
+    public void remove_viagem(ArrayList<Viagem> v) {
         //v = abrir_fich_viagens(v);
         System.out.println("Qual viagem pretende remover:");
         mostra_viagem(v);
         int opcao = Ler.umInt();
-        for(int i=0;i<v.size();i++){
-            if(opcao == v.get(i).getCod()){
+        for (int i = 0; i < v.size(); i++) {
+            if (opcao == v.get(i).getCod()) {
                 v.remove(i);
             }
         }
-        try{
+        try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
 
             os.writeInt(Viagem.getUltimo());
             os.writeObject(v);
 
-            os.flush();;
+            os.flush();
+
             os.close();
-        }catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
 
-
-
-   //ESTADIA
+    //ESTADIA
 //----------------------------------------------------------------------------------
-    public void add_estadia(ArrayList<Estadia> e1){
+    public void add_estadia(ArrayList<Estadia> e1) {
         System.out.println("Introduza o nome");
         String nome = Ler.umaString();
         Estadia e2 = new Estadia(nome);
@@ -597,7 +597,7 @@ public class Gestor{
         e1.add(e2);
 
         //atualizar dados
-        try{
+        try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("estadias.dat"));
 
             os.writeInt(Estadia.getUltimo());
@@ -605,20 +605,22 @@ public class Gestor{
 
             os.flush();
             os.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-//------------------------------------------------------------------------------------
-    public void mostra_estadia(ArrayList<Estadia> e1){
-        for(int i=0;i<e1.size();i++){
+
+    //------------------------------------------------------------------------------------
+    public void mostra_estadia(ArrayList<Estadia> e1) {
+        for (int i = 0; i < e1.size(); i++) {
             System.out.println(e1.get(i));
         }
     }
-//----------------------------------------------------------------------------------
-    public void altera_estadia(ArrayList<Estadia> e1){
+
+    //----------------------------------------------------------------------------------
+    public void altera_estadia(ArrayList<Estadia> e1) {
         //por terminar
-        try{
+        try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("estadias.dat"));
 
             os.writeInt(Estadia.getUltimo());
@@ -626,31 +628,39 @@ public class Gestor{
 
             os.flush();
             os.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-//----------------------------------------------------------------------
-    public void remove_estadia(ArrayList<Estadia> e1){
+    //----------------------------------------------------------------------
+    public void remove_estadia(ArrayList<Estadia> e1) {
         System.out.println("Qual estadia pretende remover:");
         mostra_estadia(e1);
         int opcao = Ler.umInt();
-        for(int i=0;i<e1.size();i++){
-            if(opcao == e1.get(i).getCod()){
+        for (int i = 0; i < e1.size(); i++) {
+            if (opcao == e1.get(i).getCod()) {
                 e1.remove(i);
             }
         }
-        try{
+        try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("estadias.dat"));
 
             os.writeInt(Viagem.getUltimo());
             os.writeObject(e1);
 
-            os.flush();;
+            os.flush();
+            ;
             os.close();
-        }catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    //------------------------------------------------------------------------------------
+    public void mostrar_companhias_removidas(ArrayList<Companhias_viagens> c_v_rem) {
+        for (int i = 0; i < c_v_rem.size(); i++) {
+            System.out.println(c_v_rem.get(i));
         }
     }
 }

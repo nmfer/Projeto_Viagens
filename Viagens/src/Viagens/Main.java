@@ -13,9 +13,11 @@ public class Main {
     public static int menu_viagens(){
         int opcao;
         System.out.println("Vamos viajar? De que forma?");
-        System.out.println("1 - Avião");
-        System.out.println("2 - Comboio");
-        System.out.println("3 - Barco");
+        System.out.println("1 - Mostrar Viagens");
+        System.out.println("2 - Comprar Viagem");
+        System.out.println("3 - Introduzir destino");
+        System.out.println("4 - Mostrar Estadia");
+        System.out.println("5 - Alugar Estadia");
         System.out.println("0 - Voltar ao menu principal");
 
         opcao = Ler.umInt();
@@ -42,8 +44,7 @@ public class Main {
             System.out.println("11 - Alterar Estadia");
             System.out.println("12 - Remover Estadia");
             //ver as estadias?? ou no 8 - visualizar viagens; por cada clienete apresentar se há ou não estadia reservada e caso seja apresenta o mesmo
-            //System.out.println("13 - Visualizar viagens antigas");
-            //System.out.println("14 - Visualizar companhias removidas");
+            System.out.println("13 - Visualizar companhias removidas");
             System.out.println("0 - Cancelar/voltar");
 
             opcao = Ler.umInt(); //introduz a opção escolhida
@@ -98,8 +99,8 @@ public class Main {
                         Main.menu_gestor(g1);
                     }
                     break;
-                case 3:
-                //case 4:
+                case 3://consultar bilhetes/reservas introduzindo o email da reserva
+                    break;
             }
         }while(opcao != 0);
     }

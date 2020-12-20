@@ -42,12 +42,12 @@ public class Viagem extends Tempo implements Serializable {
 
     //getters e setters
     public void setCompanhia(String companhia){ this.companhia = companhia;}
-    /*public void setOrigem(String origem){
+    public void setOrigem(String origem){
         this.origem = origem;
     }
     public void setDestino(String destino){
         this.destino = destino;
-    }*/
+    }
 
     public static void setUltimo(int cod) {Viagem.ultimo = ultimo;}
     public void setCod(int cod){ this.cod = cod;}
@@ -68,12 +68,12 @@ public class Viagem extends Tempo implements Serializable {
 
 
     public String getCompanhia(){ return this.companhia;}
-    /*public String getOrigem(){
+    public String getOrigem(){
         return this.origem;
     }
     public String getDestino(){
         return this.destino;
-    }*/
+    }
     public static int getUltimo() { return ultimo;}
     public int getCod() {return cod;}
     public int getDuracao_hora() {
@@ -82,8 +82,6 @@ public class Viagem extends Tempo implements Serializable {
     public int getDuracao_minuto() {
         return duracao_minuto;
     }
-
-
 
 
 

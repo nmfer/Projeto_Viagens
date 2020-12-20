@@ -36,6 +36,10 @@ public class Cliente {
         System.out.println(viagem);
         try{
             ObjectInputStream is = new ObjectInputStream(new FileInputStream("viagens.dat"));
+
+            int ult = is.readInt();
+            Viagem.setUltimo(ult);
+
             viagem = (ArrayList<Viagem>)is.readObject();
             is.close();
         }catch(IOException e){
