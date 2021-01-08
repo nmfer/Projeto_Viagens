@@ -166,8 +166,8 @@ public class Cliente {
                 if (cod == e1.get(i).getCod()) {
                     if(e1.get(i).confirmar_lotacao() != 0) {
                         ArrayList<Reserva> reserva = abrir_fich_reservas();
-                        System.out.println("Estadia selecionada");
-                        System.out.println("introduza um email");
+                        System.out.println("Estadia selecionada\n");
+                        System.out.println("Introduza um email");
                         String email = Ler.umaString();
                         Reserva r = new Reserva(email);
                         r.setEstadia(e1.get(i).getCompanhia());

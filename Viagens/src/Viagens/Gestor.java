@@ -511,6 +511,7 @@ public class Gestor {
     public void mostra_viagem(ArrayList<Viagem> v) {
         for (int i = 0; i < v.size(); i++) {
             System.out.println(v.get(i));
+            System.out.println("Preço_Base-> "+v.get(i).getPreco_base());
             System.out.println(v.get(i).mostra_clientes());
         }
     }
@@ -728,6 +729,7 @@ public class Gestor {
     public void mostra_estadia(ArrayList<Estadia> e1) {
         for (int i = 0; i < e1.size(); i++) {
             System.out.println(e1.get(i));
+            System.out.println("Preço_Base-> "+e1.get(i).getPreco_base());
             System.out.println(e1.get(i).mostra_clientes());
         }
     }
