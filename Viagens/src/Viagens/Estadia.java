@@ -69,7 +69,7 @@ public class Estadia extends Tempo implements Serializable {
 
     public int confirmar_lotacao(){
         if(this.lotacao == 0) {
-            System.out.println("Já não existe lotação -> a atualizar/remover a viagem, pedimos desculpa o incómodo");
+            System.out.println("\nJá não existe lotação -> a atualizar/remover a viagem, pedimos desculpa o incómodo\n");
             return 0;
         }else{
             return 1;

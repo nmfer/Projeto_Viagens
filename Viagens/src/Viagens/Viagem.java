@@ -157,7 +157,7 @@ public class Viagem extends Tempo implements Serializable {
 
     public int confirmar_lotacao(){
         if(this.lotacao == 0) {
-            System.out.println("Já não existe lotação -> a atualizar/remover a viagem, pedimos desculpa o incómodo");
+            System.out.println("\nJá não existe lotação -> a atualizar/remover a viagem, pedimos desculpa o incómodo\n");
             return 0;
         }else{
             return 1;
@@ -175,7 +175,7 @@ public class Viagem extends Tempo implements Serializable {
     @Override
     public String toString(){
         double preco = calculate_Preco(this.preco_base);
-        String s = this.cod +" " +this.companhia+ " = " + this.origem+" -> "+this.destino+" na data: "+ super.getDia()+"/"+super.getMes()+"/"+super.getAno()+" às: "+super.getHora()+":"+super.getMinuto()+" pela companhia " +this.companhia +" -> com o preco = "+preco;
+        String s = this.cod + " = " + this.origem+" -> "+this.destino+" na data: "+ super.getDia()+"/"+super.getMes()+"/"+super.getAno()+" às: "+super.getHora()+":"+super.getMinuto()+" pela companhia " +this.companhia +" -> com o preco = "+preco;
         return s;
     }
 

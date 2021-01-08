@@ -74,25 +74,37 @@ public class Gestor {
                 mostra_viagem(v);
                 break;
             case 6:
-                add_viagem(v);
+                if(cv.isEmpty() != true) {
+                    add_viagem(v);
+                }
                 break;
             case 7:
-                altera_viagem(v);
+                if(cv.isEmpty() != true) {
+                    altera_viagem(v);
+                }
                 break;
             case 8:
-                remove_viagem(v);
+                if(cv.isEmpty() != true) {
+                    remove_viagem(v);
+                }
                 break;
             case 9:
                 mostra_estadia(e1);
                 break;
             case 10:
-                add_estadia(e1);
+                if(cv.isEmpty() != true) {
+                    add_estadia(e1);
+                }
                 break;
             case 11:
-                altera_estadia(e1);
+                if(cv.isEmpty() != true) {
+                    altera_estadia(e1);
+                }
                 break;
             case 12:
-                remove_estadia(e1);
+                if(cv.isEmpty() != true) {
+                    remove_estadia(e1);
+                }
                 break;
             case 14:
                 mostrar_companhias_removidas(cv_rem);
@@ -447,7 +459,7 @@ public class Gestor {
                     System.out.println("Introduza o preço_base da viagem");
                     double preco = Ler.umDouble();
 
-                    System.out.println("introduza a lotação");
+                    System.out.println("Introduza a lotação");
                     int lotacao = Ler.umInt();
 
                     //instanciar uma nova viagem -> vg
@@ -513,7 +525,7 @@ public class Gestor {
             if (opcao == v.get(i).getCod()) {
                 do {
                     System.out.println(v.get(i));
-                    System.out.println("Qual o aspeto que pretende alterar na viagem");
+                    System.out.println("\nQual o aspeto que pretende alterar na viagem");
                     System.out.println("1-Origem");
                     System.out.println("2-Destino");
                     System.out.println("3-Ano");
@@ -662,7 +674,6 @@ public class Gestor {
     //ESTADIA
 //----------------------------------------------------------------------------------
     public void add_estadia(ArrayList<Estadia> e1) {
-
         //Abrir viagens
         ArrayList<Companhias_viagens> c_v = new ArrayList<Companhias_viagens>();
         c_v = abrir_fich_companhias(c_v);
@@ -670,10 +681,10 @@ public class Gestor {
         System.out.println("Introduza o preço_base da estadia");
         double preco_base = Ler.umDouble();
 
-        System.out.println("introduza a lotação por quarto");
+        System.out.println("Introduza a lotação por quarto");
         int lotacao = Ler.umInt();
 
-        System.out.println("introduza a local da estadia");
+        System.out.println("Introduza a local da estadia");
         String local = Ler.umaString();
 
         System.out.println("Introduza as Carateristicas do quarto");
@@ -723,7 +734,7 @@ public class Gestor {
 
     //----------------------------------------------------------------------------------
     public void altera_estadia(ArrayList<Estadia> e1) {
-        System.out.println("Qual a estadia que pretende alterar:");
+        System.out.println("\nQual a estadia que pretende alterar:");
         mostra_estadia(e1);
         int opcao = Ler.umInt();
         int opcao1;

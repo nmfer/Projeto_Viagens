@@ -49,6 +49,6 @@ public class Companhias_viagens implements Serializable {
 
     @Override
     public String toString(){
-        return "Nome -> "+this.name+ "_ id -> "+this.id;
+        return this.id + "-> Nome -> "+this.name;
     }
 }

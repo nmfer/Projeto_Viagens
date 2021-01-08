@@ -111,7 +111,7 @@ public class Cliente {
     public void comprar_Viagem(){
         ArrayList<Viagem> v = abrir_Viagens();
         if(v.isEmpty()){
-            System.out.println("Ainda não existem Viagens disponiveis");
+            System.out.println("\nAinda não existem Viagens disponiveis\n");
         }else {
             mostrar_Viagem(v);
             System.out.println("\n Introduza o código id da viagem que pretende comprar");
@@ -153,9 +153,6 @@ public class Cliente {
         }
     }
 
-
-
-
     public void alugar_estadia(){
         ArrayList<Estadia> e1 = abrir_Estadias();
         if(e1.isEmpty()){
@@ -196,7 +193,7 @@ public class Cliente {
     }
     public void display_cliente(){
 
-        System.out.println("introduza o seu email");
+        System.out.println("\nIntroduza o seu email");
         String email = Ler.umaString();
 
         ArrayList<Reserva> r ;//= new ArrayList<Reserva>();
@@ -206,7 +203,7 @@ public class Cliente {
             if(r.get(i).getEmail().equals(email)){
                 System.out.println(r.get(i));
             }else{
-                System.out.println("Email incorreto");
+                System.out.println("Email incorreto\n");
             }
         }
 
