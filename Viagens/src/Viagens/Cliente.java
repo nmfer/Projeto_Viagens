@@ -147,6 +147,15 @@ public class Cliente {
                         int lotacao = v.get(i).getLotacao();
                         lotacao--;
                         v.get(i).setLotacao(lotacao);
+
+                        try {
+                            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
+                            os.writeObject(v);
+                            os.flush();
+                            os.close();
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                 }
             }
@@ -170,6 +179,7 @@ public class Cliente {
                         System.out.println("Introduza um email");
                         String email = Ler.umaString();
                         Reserva r = new Reserva(email);
+                        e1.get(i).setClient(email);
                         r.setEstadia(e1.get(i).getCompanhia());
                         r.setLocal_estadia(e1.get(i).getLocal());
 
@@ -180,6 +190,17 @@ public class Cliente {
 
                             os.writeInt(Reserva.getUltimo());
                             os.writeObject(r);
+
+                            os.flush();
+                            os.close();
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        try {
+                            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("estadias.dat"));
+
+                            os.writeInt(Viagem.getUltimo());
+                            os.writeObject(e1);
 
                             os.flush();
                             os.close();
@@ -208,6 +229,30 @@ public class Cliente {
         }
 
 
+    }
+
+    public void mostrar_maior(){
+        ArrayList<Reserva> r = new ArrayList<Reserva>();
+        ArrayList<Viagem> v = new ArrayList<Viagem>();
+        r = abrir_fich_reservas();
+        v = abrir_Viagens();
+
+        int count = 0;
+        String aux = "";
+        for(int i=0; i<r.size(); i++){
+            aux = r.get(i).getEmail();
+
+            for(int j=0;j<v.size();j++){
+                ArrayList<String> aux_a = v.get(i).getClient();
+                for(int q=0;q<aux_a.size();q++){
+                    if(aux.equals(aux_a.get(q))){
+                        count++;
+                    }
+                }
+
+            }
+
+        }
     }
 }
 

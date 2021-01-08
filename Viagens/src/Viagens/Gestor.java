@@ -205,6 +205,33 @@ public class Gestor {
         return reserva;
     }
 
+    public void mostra_mais(){
+        ArrayList<Viagem> viagem = new ArrayList<Viagem>();
+        viagem = abrir_fich_viagens(viagem);
+
+        ArrayList<String> aux1 = new ArrayList<String>();
+        ArrayList<String> aux = new ArrayList<String>();
+        //for(int i=0; i<viagem.size();i++){
+        //    aux = viagem.get(i).getClient();
+        //    for(int j=0; j<aux.size(); j++){
+
+        //    }
+
+
+    }
+    public void mostra_Tap(){
+        ArrayList<Viagem> v = new ArrayList<>();
+        v = abrir_fich_viagens(v);
+
+        for(int i=0; i<v.size();i++){
+            if(v.get(i).getCompanhia().equals("Tap")){
+                System.out.println(v.get(i));
+            }
+        }
+    }
+
+
+
     //COMPANHIA VIAGEM
 //-------------------------------------------------------------------------------
     public void add_companhia(ArrayList<Companhias_viagens> companhia) {
