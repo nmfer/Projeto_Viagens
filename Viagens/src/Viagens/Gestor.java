@@ -411,7 +411,7 @@ public class Gestor {
                 } while (x == true);
 
                 //Data e Tempo da viagem
-               Tempo t = new Tempo();
+                Tempo t = new Tempo();
                 System.out.println("Introduza a data e tempo da viagem");
 
                 try {
@@ -529,15 +529,18 @@ public class Gestor {
                     //selecionar opção
                     opcao1 = Ler.umInt();
                     switch (opcao1) {
-                        case 1:
+                        case 1: //ORIGEM
+                            System.out.println("Origem");
                             String origem = Ler.umaString();
                             v.get(i).setOrigem(origem);
                             break;
-                        case 2:
+                        case 2: //DESTINO
+                            System.out.println("Destino");
                             String destino = Ler.umaString();
                             v.get(i).setDestino(destino);
                             break;
-                        case 3:
+                        case 3: //ANO
+                            System.out.println("Ano");
                             try {
                                 int ano = Ler.umInt();
                                 v.get(i).setAno(ano);
@@ -545,7 +548,8 @@ public class Gestor {
                                 System.out.println(e.getMessage());
                             }
                             break;
-                        case 4:
+                        case 4: //MES
+                            System.out.println("Mes");
                             try {
                                 int mes = Ler.umInt();
                                 v.get(i).setMes(mes);
@@ -553,7 +557,8 @@ public class Gestor {
                                 System.out.println(e.getMessage());
                             }
                             break;
-                        case 5:
+                        case 5: //DIA
+                            System.out.println("Dia");
                             try {
                                 int dia = Ler.umInt();
                                 v.get(i).setDia(dia);
@@ -561,7 +566,8 @@ public class Gestor {
                                 System.out.println(e.getMessage());
                             }
                             break;
-                        case 6:
+                        case 6: //HORA
+                            System.out.println("Hora");
                             try {
                                 int hora = Ler.umInt();
                                 v.get(i).setHora(hora);
@@ -569,7 +575,8 @@ public class Gestor {
                                 System.out.println(e.getMessage());
                             }
                             break;
-                        case 7:
+                        case 7: //MINUTO
+                            System.out.println("Minuto");
                             try {
                                 int minuto = Ler.umInt();
                                 v.get(i).setMinuto(minuto);
@@ -577,7 +584,8 @@ public class Gestor {
                                 System.out.println(e.getMessage());
                             }
                             break;
-                        case 8:
+                        case 8: //DURAÇÃO VIAGEM
+                            System.out.println("Duração-viagem");
                             try {
                                 System.out.println("Horas");
                                 int duracao_hora = Ler.umInt();
@@ -590,11 +598,13 @@ public class Gestor {
                                 System.out.println(e.getMessage());
                             }
                             break;
-                        case 9:
+                        case 9: //PREÇO
+                            System.out.println("Preco");
                             double preco = Ler.umDouble();
                             v.get(i).setPreco_base(preco);
                             break;
-                        case 10:
+                        case 10: //LOTAÇÃO
+                            System.out.println("Lotação");
                             int lotacao = Ler.umInt();
                             v.get(i).setLotacao(lotacao);
                             break;
@@ -604,6 +614,7 @@ public class Gestor {
             }
 
         }
+
         //atualizar os dados
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
@@ -624,7 +635,7 @@ public class Gestor {
     //----------------------------------------------------------------------
     public void remove_viagem(ArrayList<Viagem> v) {
 
-        System.out.println("Qual viagem pretende remover:");
+        System.out.println("\nQual viagem pretende remover:");
         mostra_viagem(v);
         int opcao = Ler.umInt();
         for (int i = 0; i < v.size(); i++) {
@@ -632,6 +643,7 @@ public class Gestor {
                 v.remove(i);
             }
         }
+        //atualizar dados
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
 
@@ -650,8 +662,11 @@ public class Gestor {
     //ESTADIA
 //----------------------------------------------------------------------------------
     public void add_estadia(ArrayList<Estadia> e1) {
+
+        //Abrir viagens
         ArrayList<Companhias_viagens> c_v = new ArrayList<Companhias_viagens>();
         c_v = abrir_fich_companhias(c_v);
+
         System.out.println("Introduza o preço_base da estadia");
         double preco_base = Ler.umDouble();
 
@@ -665,7 +680,9 @@ public class Gestor {
         String car = Ler.umaString();
 
         Estadia e2 = new Estadia(car, lotacao, preco_base, local);
+
         System.out.println("Qual a companhia que oferece");
+        //mostra companhia
         for (int i = 0; i < c_v.size(); i++) {
             if (c_v.get(i).getTipo().equals("Estadia")) {
                 System.out.println(c_v.get(i));
@@ -680,8 +697,6 @@ public class Gestor {
                 e2.setCompanhia(c_v.get(i).getName());
             }
         }
-
-
         e1.add(e2);
 
         //atualizar dados
@@ -726,19 +741,23 @@ public class Gestor {
                     //selecionar opção
                     opcao1 = Ler.umInt();
                     switch (opcao1) {
-                        case 1:
+                        case 1: //CARATERISTICA
+                            System.out.println("Carateristicas");
                             String s = Ler.umaString();
                             e1.get(i).setCar(s);
                             break;
-                        case 2:
+                        case 2: //LOTAÇÃO
+                            System.out.println("Lotação");
                             int lotacao = Ler.umInt();
                             e1.get(i).setLotacao_quarto(lotacao);
                             break;
-                        case 3:
+                        case 3: //LOCAL
+                            System.out.println("Local");
                             String local = Ler.umaString();
                             e1.get(i).setLocal(local);
                             break;
-                        case 4:
+                        case 4: //PREÇO
+                            System.out.println("Preço base");
                             double preco = Ler.umDouble();
                             e1.get(i).setPreco_base(preco);
                             break;
@@ -746,6 +765,7 @@ public class Gestor {
                 }while(opcao1 != 0);
             }
         }
+        //atualizar os dados
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("estadias.dat"));
 
@@ -762,7 +782,7 @@ public class Gestor {
 
     //----------------------------------------------------------------------
     public void remove_estadia(ArrayList<Estadia> e1) {
-        System.out.println("Qual estadia pretende remover:");
+        System.out.println("\nQual estadia pretende remover:");
         mostra_estadia(e1);
         int opcao = Ler.umInt();
         for (int i = 0; i < e1.size(); i++) {
@@ -770,6 +790,7 @@ public class Gestor {
                 e1.remove(i);
             }
         }
+        //atualizar dados
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("estadias.dat"));
 

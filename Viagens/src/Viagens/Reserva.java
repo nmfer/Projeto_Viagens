@@ -20,10 +20,12 @@ public class Reserva implements Serializable {
     //getters e setters
     public static void setUltimo(int cod) {Reserva.ultimo = ultimo;}
     public static int getUltimo() { return ultimo;}
+
     public void setViagem(String viagem){
         this.viagem = viagem;
     }
     public String getViagem(){return this.viagem;}
+
     public void setEstadia(String estadia){
         this.estadia = estadia;
     }
@@ -33,17 +35,21 @@ public class Reserva implements Serializable {
         this.destino = destino;
     }
     public String getDestino(){return this.destino;}
+
     public void setOrigem(String origem){
         this.origem = origem;
     }
     public String getOrigem(){return this.origem;}
+
     public void setLocal_estadia(String local_estadia){
         this.local_estadia = local_estadia;
     }
     public String getLocal_estadia(){return this.local_estadia;}
 
     public String getEmail(){return this.email;}
+    public void setEmail(String email){this.email = email;}
 
+    @Override
     public String toString(){
         String s = this.email + "\n";
         if(this.viagem != null){

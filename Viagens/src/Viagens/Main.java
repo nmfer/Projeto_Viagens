@@ -1,10 +1,6 @@
 package Viagens;
 import my_inputs.Ler;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -29,6 +25,7 @@ public class Main {
     public static void menu_gestor(Gestor g1){
         int opcao;
         do {
+            System.out.println("\nMENU GESTOR:");
             System.out.println("1 - Mostra Companhias");
             System.out.println("2 - Adiciona Companhia");
             System.out.println("3 - Alterar Companhia");
@@ -37,14 +34,13 @@ public class Main {
             System.out.println("6 - Adicionar Viagem");
             System.out.println("7 - Alterar Viagem");
             System.out.println("8 - Remover Viagens");
-
             System.out.println("9 - Visualizar Estadias");
             System.out.println("10 - Adicionar Estadia");
             System.out.println("11 - Alterar Estadia");
             System.out.println("12 - Remover Estadia");
-
             System.out.println("13 - Visualizar companhias removidas");
-            System.out.println("0 - Cancelar/voltar");
+            System.out.println("0 - Cancelar/voltar\n");
+
 
             opcao = Ler.umInt(); //introduz a opção escolhida
             g1.main_menu(opcao); //"manda" para o Main Menu do Gestor
@@ -58,7 +54,7 @@ public class Main {
     public static int main_menu(){
         int opcao;
         System.out.println("BEM VINDO!!"+"\nO que pretende fazer?");
-        System.out.println("1 - Consultar Viagens");
+        System.out.println("1 - Consultar Viagens/Estadias");
         System.out.println("2 - Gestor -> Iniciar sessão");
         System.out.println("3 - Consultar Reservas");
         System.out.println("0 - Sair");
@@ -68,16 +64,16 @@ public class Main {
     }
 //-------------------------------------------------------------------------------------
     public static void main(String[] args) {
-        //ArrayList<Companhias_viagens> cv = new ArrayList<>();
-        Gestor g1 = new Gestor(); //instanciar gestor
 
+        Gestor g1 = new Gestor();
         Cliente c1 = new Cliente();
-        int opcao; //= Main.main_menu();
+
+        int opcao;
         do{
             opcao = Main.main_menu();
             switch(opcao){
                 case 1: //CONSULTAR VIAGENS
-                    int opcao1;// = Main.menu_viagens();
+                    int opcao1;
                     do{
                         //-------------------------------------------------
                         opcao1 = Main.menu_viagens();
@@ -103,7 +99,7 @@ public class Main {
                         Main.menu_gestor(g1);
                     }
                     break;
-                case 3:
+                case 3: //MOSTRAR RESERVAS
                     c1.display_cliente();
                     break;
             }

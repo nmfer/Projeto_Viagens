@@ -162,7 +162,7 @@ public class Cliente {
             System.out.println("Ainda não existem Estadias disponiveis");
         }else {
             mostrar_Estadias(e1);
-            System.out.println("\n Introduza o código id da estadia que pretende alugar");
+            System.out.println("\nIntroduza o código id da estadia que pretende alugar");
             int cod = Ler.umInt();
 
             for (int i = 0; i < e1.size(); i++) {

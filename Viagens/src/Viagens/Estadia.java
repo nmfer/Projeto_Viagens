@@ -11,7 +11,6 @@ public class Estadia extends Tempo implements Serializable {
     private String companhia;
     private int lotacao;
     private double preco_base;
-
     private ArrayList<String> client;
 
     public Estadia (String car, int lotacao, double preco_base, String local){
@@ -28,25 +27,29 @@ public class Estadia extends Tempo implements Serializable {
     public void setCar(String car){
         this.car = car;
     }
-    public void setCod(int cod){this.cod = cod; }
-    public void setPreco_base(double preco_base) {
-        this.preco_base = preco_base;
-    }
-    public void setLocal(String local){ this.local = local;}
-    public void setLotacao_quarto(int lotacao){
-        this.lotacao = lotacao;
-    }
-    public static void setUltimo(int ultimo){Estadia.ultimo = ultimo;}
-
     public String getCar(){
         return this.car;
     }
+
+    public void setCod(int cod){this.cod = cod; }
     public int getCod(){
         return this.cod;
     }
+
+    public void setPreco_base(double preco_base) {
+        this.preco_base = preco_base;
+    }
     public double getPreco_base() { return this.preco_base;}
+
+    public void setLocal(String local){ this.local = local;}
     public String getLocal() {return this.local;}
+
+    public void setLotacao_quarto(int lotacao){
+        this.lotacao = lotacao;
+    }
     public int getLotacao() { return this.lotacao;}
+
+    public static void setUltimo(int ultimo){Estadia.ultimo = ultimo;}
     public static int getUltimo(){return ultimo;}
 
     public void setCompanhia(String companhia){
@@ -80,6 +83,7 @@ public class Estadia extends Tempo implements Serializable {
         }
         return s;
     }
+
     @Override
     public String toString(){
         String s = this.cod+"_ "+ this.companhia+ "-> " +this.car+ " -> " +this.preco_base+ " pessoas " +this.lotacao+ " em "+this.local+"\n";
