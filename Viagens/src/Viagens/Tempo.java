@@ -28,9 +28,8 @@ public class Tempo implements Serializable {
 
 
     public void setHora(int hora) throws TimeException{
-        //checkDay();
-        if((dia == day_now) && (mes == month_now) && (ano == year_now)){
-            throw new TimeException("Impossivel introduzir viagem no mesmo dia");
+        if((dia <= day_now) && (mes <= month_now) && (ano <= year_now)){
+            throw new TimeException("Impossivel introduzir viagem");
         }else {
             if ((hora < 0) || (hora > 23)) {
                 throw new TimeException("Introdução tempo incorreta-> introduza entre: 0h-23h");
@@ -40,9 +39,8 @@ public class Tempo implements Serializable {
         }
     }
     public void setMinuto(int minuto) throws TimeException{
-        //checkDay();
-        if((dia == day_now) && (mes == month_now) && (ano == year_now)){
-            throw new TimeException("Impossivel introduzir viagem no mesmo dia");
+        if((dia <= day_now) && (mes <= month_now) && (ano <= year_now)){
+            throw new TimeException("Impossivel introduzir viagem");
         }else {
             if ((minuto < 0) || (minuto > 59)) {
                 throw new TimeException("Introdução tempo incorreta-> introduza entre: 0min-59min");
@@ -57,7 +55,7 @@ public class Tempo implements Serializable {
     //3º definir o dia
     public void setDia(int dia)throws TimeException {
         if ((dia < 1) || (mes > 31)) {
-            throw new TimeException("Introdução tempo incorreta");
+            throw new TimeException("Introdução dia incorreta");
         }
         this.dia = dia;
 
@@ -67,7 +65,7 @@ public class Tempo implements Serializable {
     //2º definir mes
     public void setMes(int mes) throws TimeException{
         if((mes < 1) || (mes > 12)){
-            throw new TimeException("Introdução tempo incorreta-> introduza entre: 1(Janeiro)-12(Dezembro");
+            throw new TimeException("Introdução mês incorreta-> introduza entre: 1(Janeiro)-12(Dezembro");
         }
         this.mes = mes;
 
@@ -76,7 +74,7 @@ public class Tempo implements Serializable {
     //1º definir ano
     public void setAno(int ano) throws TimeException{
         if(ano < year_now){
-            throw new TimeException("Introdução tempo incorreta");
+            throw new TimeException("Introdução ano incorreta");
         }
         this.ano = ano;
     }

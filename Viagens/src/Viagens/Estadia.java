@@ -1,24 +1,26 @@
 package Viagens;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Estadia extends Tempo implements Serializable {
     private String car;
     private int cod;
     private static int ultimo = 0;
     private String local;
-
+    private String companhia;
     private int lotacao;
     private double preco_base;
 
-    public Estadia(String car, int lotacao, double preco_base, String local){
+    private ArrayList<String> client;
 
+    public Estadia (String car, int lotacao, double preco_base, String local){
         this.car = car;
         this.local = local;
         this.lotacao = lotacao;
         this.preco_base = preco_base;
-
         this.cod = this.ultimo++;
+        this.client = new ArrayList<String>();
     }
 
 
@@ -47,9 +49,41 @@ public class Estadia extends Tempo implements Serializable {
     public int getLotacao() { return this.lotacao;}
     public static int getUltimo(){return ultimo;}
 
+    public void setCompanhia(String companhia){
+        this.companhia = companhia;
+    }
+    public String getCompanhia(){
+        return this.companhia;
+    }
 
+    public void setClient(String email){
+        this.client.add(email);
+    }
+    public ArrayList<String> getClient() {
+        return this.client;
+    }
+
+
+    public int confirmar_lotacao(){
+        if(this.lotacao == 0) {
+            System.out.println("Já não existe lotação -> a atualizar/remover a viagem, pedimos desculpa o incómodo");
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+
+    public String mostra_clientes(){
+        String s = "";
+        for(int i=0; i<client.size();i++){
+            s = s + client.get(i) + "\n";
+        }
+        return s;
+    }
     @Override
     public String toString(){
-        return cod+ "-> " +car+ " " +preco_base+ " " +lotacao+ " "+local;
+        String s = this.cod+"_ "+ this.companhia+ "-> " +this.car+ " -> " +this.preco_base+ " pessoas " +this.lotacao+ " em "+this.local+"\n";
+
+        return s;
     }
 }

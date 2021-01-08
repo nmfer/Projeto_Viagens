@@ -1,7 +1,6 @@
 package Viagens;
 
 import java.io.*;
-import java.sql.Time;
 import java.util.ArrayList;
 import my_inputs.Ler;
 
@@ -123,7 +122,6 @@ public class Gestor {
 
     //------------------------------------------------------------------------
     public ArrayList<Estadia> abrir_fich_estadias(ArrayList<Estadia> e1) {
-        //ArrayList<Estadia> e2 = new ArrayList<Estadia>();
         try {
             ObjectInputStream is = new ObjectInputStream(new FileInputStream("estadias.dat"));
 
@@ -137,13 +135,11 @@ public class Gestor {
         } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        //System.out.println(e2);
         return e1;
     }
 
     //-------------------------------------------------------------------------------
     public ArrayList<Viagem> abrir_fich_viagens(ArrayList<Viagem> v) {
-        //ArrayList<Estadia> e2 = new ArrayList<Estadia>();
         try {
             ObjectInputStream is = new ObjectInputStream(new FileInputStream("viagens.dat"));
 
@@ -157,7 +153,6 @@ public class Gestor {
         } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        //System.out.println(e2);
         return v;
     }
 
@@ -179,7 +174,24 @@ public class Gestor {
 
         return c_v_rem;
     }
+    //-------------------------------------------------------------------------------
+    public ArrayList<Reserva> abrir_fich_reservas(ArrayList<Reserva> reserva) {
+        //ArrayList<Reserva> reserva = new ArrayList<Reserva>();
+        try {
+            ObjectInputStream is = new ObjectInputStream(new FileInputStream("reservas.dat"));
 
+            int ult = is.readInt();
+            Reserva.setUltimo(ult);
+
+            reserva = (ArrayList<Reserva>) is.readObject();
+            is.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return reserva;
+    }
 
     //COMPANHIA VIAGEM
 //-------------------------------------------------------------------------------
@@ -232,7 +244,12 @@ public class Gestor {
     public void altera_companhia(ArrayList<Companhias_viagens> c_v) {
         mostra_companhia(c_v);
         ArrayList<Viagem> v = new ArrayList<Viagem>();
+        ArrayList<Estadia> e1 = new ArrayList<Estadia>();
+        ArrayList<Reserva> r = new ArrayList<Reserva>();
         v = abrir_fich_viagens(v);
+        e1 = abrir_fich_estadias(e1);
+        r = abrir_fich_reservas(r);
+
 
         System.out.println("Introduza o id da companhia de forma a mudar o nome da mesma");
         String old_name;
@@ -243,33 +260,64 @@ public class Gestor {
                 System.out.println("Introduza o novo nome para a companhia " + c_v.get(i).getName());
                 String new_name = Ler.umaString();
 
-                //verififcar s enome existe já existe
+                //verififcar se nome existe já existe
                 for (int j = 0; j < c_v.size(); j++) {
                     if (new_name.equals(c_v.get(j).getName())) {
                         System.out.println("Companhia nome já existe, introduza outro:");
                         new_name = Ler.umaString();
                     }
                 }
-
                 c_v.get(i).setName(new_name);
+                if(c_v.get(i).getTipo().equals("Transporte")) {
+                    for (int j = 0; j < v.size(); j++) {
+                        if (v.get(j).getCompanhia().equals(old_name)) {
+                            v.get(j).setCompanhia(new_name);
 
-                // percorrer as viagens existentes para
-                // encontrar a viagem com o nome da companhia antiga e substitui o mesmo pelo novo nome
-                for (int j = 0; j < v.size(); j++) {
-                    if (v.get(j).getCompanhia().equals(old_name)) {
-                        v.get(j).setCompanhia(new_name);
-
-                        try {
-                            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
-                            os.writeObject(v);
-                            os.flush();
-                            os.close();
-                        } catch (IOException e) {
-                            System.out.println(e.getMessage());
-                        } finally {
-                            System.out.println("Done2");
+                            try {
+                                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("viagens.dat"));
+                                os.writeObject(v);
+                                os.flush();
+                                os.close();
+                            } catch (IOException e) {
+                                System.out.println(e.getMessage());
+                            }
                         }
                     }
+                }
+                if(c_v.get(i).getTipo().equals("Estadia")) {
+                    for (int j = 0; j < e1.size(); j++) {
+                        if (e1.get(j).getCompanhia().equals(old_name)) {
+                            e1.get(j).setCompanhia(new_name);
+
+                            try {
+                                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("estadia.dat"));
+                                os.writeObject(v);
+                                os.flush();
+                                os.close();
+                            } catch (IOException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                    }
+                }
+                for(int j=0; j<r.size();j++){
+                    if(r.get(j).getViagem().equals(old_name)){
+                        r.get(j).setViagem(new_name);
+                    }
+                    if(r.get(j).getEstadia().equals(old_name)){
+                        r.get(j).setEstadia(new_name);
+                    }
+                }
+                try {
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("reservas.dat"));
+
+                    os.writeInt(Reserva.getUltimo());
+                    os.writeObject(r);
+
+                    os.flush();
+                    os.close();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
                 }
             }
         }
@@ -285,8 +333,6 @@ public class Gestor {
             os.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            System.out.println("Done");
         }
 
     }
@@ -295,7 +341,7 @@ public class Gestor {
     public void remover_companhia_viagem(ArrayList<Companhias_viagens> c_v) {
         ArrayList<Companhias_viagens> c_v_remove = new ArrayList<Companhias_viagens>();
 
-        System.out.println("Introduza o id da companhia de forma a eliminá-la");
+        System.out.println("Introduza o ID da companhia de forma a eliminá-la");
         mostra_companhia(c_v);
 
         int opcao = Ler.umInt();
@@ -329,8 +375,6 @@ public class Gestor {
             os.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            System.out.println("Done");
         }
     }
 
@@ -346,8 +390,8 @@ public class Gestor {
         for (int j = 0; j < c_v.size(); j++) {
             if (c_v.get(j).getTipo().equals("Transporte")) {
 
-                String origem; //= Ler.umaString();
-                String destino;// = Ler.umaString();
+                String origem;
+                String destino;
 
                 boolean x = true;
                 do {
@@ -455,6 +499,7 @@ public class Gestor {
     public void mostra_viagem(ArrayList<Viagem> v) {
         for (int i = 0; i < v.size(); i++) {
             System.out.println(v.get(i));
+            System.out.println(v.get(i).mostra_clientes());
         }
     }
 
@@ -572,12 +617,13 @@ public class Gestor {
             System.out.println(e.getMessage());
         }
 
+
     }
 
 
     //----------------------------------------------------------------------
     public void remove_viagem(ArrayList<Viagem> v) {
-        //v = abrir_fich_viagens(v);
+
         System.out.println("Qual viagem pretende remover:");
         mostra_viagem(v);
         int opcao = Ler.umInt();
@@ -604,7 +650,8 @@ public class Gestor {
     //ESTADIA
 //----------------------------------------------------------------------------------
     public void add_estadia(ArrayList<Estadia> e1) {
-
+        ArrayList<Companhias_viagens> c_v = new ArrayList<Companhias_viagens>();
+        c_v = abrir_fich_companhias(c_v);
         System.out.println("Introduza o preço_base da estadia");
         double preco_base = Ler.umDouble();
 
@@ -618,6 +665,22 @@ public class Gestor {
         String car = Ler.umaString();
 
         Estadia e2 = new Estadia(car, lotacao, preco_base, local);
+        System.out.println("Qual a companhia que oferece");
+        for (int i = 0; i < c_v.size(); i++) {
+            if (c_v.get(i).getTipo().equals("Estadia")) {
+                System.out.println(c_v.get(i));
+
+            }
+        }
+        //definir a companhia da viagem
+        System.out.println("Introduza o ID da Companhia");
+        int opcao = Ler.umInt();
+        for (int i = 0; i < c_v.size(); i++) {
+            if (c_v.get(i).getID() == opcao) {
+                e2.setCompanhia(c_v.get(i).getName());
+            }
+        }
+
 
         e1.add(e2);
 
@@ -639,6 +702,7 @@ public class Gestor {
     public void mostra_estadia(ArrayList<Estadia> e1) {
         for (int i = 0; i < e1.size(); i++) {
             System.out.println(e1.get(i));
+            System.out.println(e1.get(i).mostra_clientes());
         }
     }
 

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class Main {
 
-    //MENU VIAGENS
+    //MENU VIAGENS/Cliente
 //-----------------------------------------------------------------------------------
     public static int menu_viagens(){
         int opcao;
-        System.out.println("Vamos viajar? De que forma?");
+        System.out.println("Olá! O que pretende fazer?");
         System.out.println("1 - Mostrar Viagens");
         System.out.println("2 - Comprar Viagem");
         System.out.println("3 - Mostrar Estadia");

@@ -16,9 +16,9 @@ public class Viagem extends Tempo implements Serializable {
     private int cod;
     private double preco_base;
     private double preco;
-
     private int lotacao;
-    //private static int lotacao;
+
+    private ArrayList<String> client;
 
 
 
@@ -33,6 +33,7 @@ public class Viagem extends Tempo implements Serializable {
         this.preco_base = preco_base;
         this.preco = calculate_Preco(preco_base);
         this.cod = ultimo++;
+        this.client = new ArrayList<String>();
     }
 
     //getters e setters
@@ -53,6 +54,14 @@ public class Viagem extends Tempo implements Serializable {
             this.duracao_hora = duracao_hora;
         }
     }
+
+    public void setClient(String email){
+        this.client.add(email);
+    }
+    public ArrayList<String> getClient() {
+        return this.client;
+    }
+
     public void setDuracao_minuto(int duracao_minuto) throws TimeException{
         if ((duracao_minuto >= 0) || (duracao_minuto <= 59)) {
             throw new TimeException("Introdução tempo incorreta-> introduza entre: 0min-59min");
@@ -63,10 +72,12 @@ public class Viagem extends Tempo implements Serializable {
     public void setPreco_base(double preco_base){
         this.preco_base = preco_base;
     }
-    public void setPreco(double preco){
-        this.preco = calculate_Preco(preco_base);
+    public double getPreco_base(){
+        return this.preco_base;
     }
-
+    public double getPreco(){
+        return this.preco;
+    }
 
     public String getCompanhia(){ return this.companhia;}
     public String getOrigem(){
@@ -85,10 +96,14 @@ public class Viagem extends Tempo implements Serializable {
         return duracao_minuto;
     }
 
+
+
+
+
     public double calculate_Preco(double preco_base){
         double preco_final = preco_base;
         //determinar o preco da viagem tendo em conta a data/data de compra
-        if(falta_ano(super.getAno()) >= 1 && falta_mes(super.getMes()) >= 12){
+        if(falta_ano(super.getAno()) >= 1){
             preco_final = this.preco_base - (this.preco_base * 0.30);
             return preco_final;
         }if(falta_ano(super.getAno()) < 1){
@@ -140,11 +155,28 @@ public class Viagem extends Tempo implements Serializable {
         return preco_final;
     }
 
+    public int confirmar_lotacao(){
+        if(this.lotacao == 0) {
+            System.out.println("Já não existe lotação -> a atualizar/remover a viagem, pedimos desculpa o incómodo");
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+    public String mostra_clientes(){
+        String s = "";
+        for(int i=0; i<client.size();i++){
+            s = s + client.get(i) + "\n";
+        }
+        return s;
+    }
 
 
     @Override
     public String toString(){
-        return cod + " = " + origem+" -> "+destino+" na data: "+ super.getDia()+"/"+super.getMes()+"/"+super.getAno()+" às: "+super.getHora()+":"+super.getMinuto()+" pela companhia " +companhia +" -> com o preco = "+preco;
+        double preco = calculate_Preco(this.preco_base);
+        String s = this.cod +" " +this.companhia+ " = " + this.origem+" -> "+this.destino+" na data: "+ super.getDia()+"/"+super.getMes()+"/"+super.getAno()+" às: "+super.getHora()+":"+super.getMinuto()+" pela companhia " +this.companhia +" -> com o preco = "+preco;
+        return s;
     }
 
 }
